@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="proxy_data/jquery.js"></script>
+<script type="text/javascript" src="proxy_data/postmessage.js"></script>
+<script>
+(function() {
+var receiveMessage, sendMessage, sendError, cookies, cookie = '', i, ajaxSetup = { dataType: 'json' },
+    bufferMessage = true, emptyBuffer, buffer = [],
+    origin = window.location.hash.replace( '#', '' ).split( '/', 3 ).join( '/' ),
+    giveMeAccessToAllUsersBlogs = false,
+    usePM = false;
+
+var originWhitelist = [
+	// widgets.wp.com hosts the Like button
+	'http://widgets.wp.com',
+	'https://widgets.wp.com'
+];
+
+if ( !origin ) {
+	return;
+}
+
+receiveMessage = function( event ) {
+	var data, sendAsString = false;
+
+	if ( !usePM ) {
+		if ( 'string' === typeof event ) {
+			event = JSON.parse( event );
+		}
+
+		if ( origin !== event.origin ) {
+			return;
+		}
+
+		if ( bufferMessage ) {
+			buffer.push( { data: event.data, origin: event.origin } );
+			return;
+		}
+
+		if ( 'string' === typeof event.data ) {
+			data = JSON.parse( event.data );
+			sendAsString = true;
+		} else {
+			data = event.data;
+		}
+	} else {
+		if ( bufferMessage ) {
+			buffer.push( event );
+			return;
+		}
+
+		data = event;
+	}
+
+	if ( 'undefined' !== typeof data.metaAPI && data.metaAPI ) {
+		if ( 'undefined' !== typeof data.metaAPI.accessAllUsersBlogs ) {
+			giveMeAccessToAllUsersBlogs = !!data.metaAPI.accessAllUsersBlogs; // (bool)
+		}
+
+		sendMessage( data.callback, sendAsString )( data.metaAPI );
+		return;
+	}
+
+	var url = window.location.protocol + '//public-api.wordpress.com/rest/v1' + data.path + '?http_envelope=1';
+	if ( data.query ) {
+		if ( 'string' === typeof data.query ) {
+			url += '&' + data.query.replace( /^&/, '' );
+		} else {
+			url += '&' + jQuery.param( data.query );
+		}
+	}
+
+	jQuery.ajax( {
+		url : url,
+		type : data.method,
+		success : sendMessage( data.callback, sendAsString ),
+		error : sendError( data.callback, sendAsString ),
+		data : 'POST' === data.method ? data.body : null
+	} );
+};
+
+if ( window.addEventListener && window.postMessage ) {
+	window.addEventListener( 'message', receiveMessage, false );
+} else {
+	usePM = true;
+	pm.bind( 'proxy', receiveMessage );
+}
+
+cookies = document.cookie.split( /;\s*/ );
+for ( i = 0; i < cookies.length; i++ ) {
+	if ( cookies[i].match( /^wp_api=/ ) ) {
+		cookies = cookies[i].split( '=' );
+		cookie = cookies[1];
+		break;
+	}
+}
+
+if ( cookie ) {
+	ajaxSetup['beforeSend'] = function( jqXHR ) {
+		if ( giveMeAccessToAllUsersBlogs ) {
+			jqXHR.setRequestHeader( 'Authorization', 'X-WPCOOKIE ' + cookie + ':1:' + origin );
+		} else {
+			jqXHR.setRequestHeader( 'Authorization', 'X-WPCOOKIE ' + cookie + ':0:' + origin );
+		}
+	};
+}
+
+jQuery.ajaxSetup( ajaxSetup );
+
+emptyBuffer = function(){
+	var event;
+	while(event = buffer.shift()){
+		receiveMessage( event );
+	}
+}
+
+if ( jQuery.inArray( origin, originWhitelist ) > -1 ) {
+	bufferMessage = false;
+	emptyBuffer();
+}
+else {
+	jQuery.get( window.location.protocol + '//public-api.wordpress.com/rest/v1/sites/' + encodeURIComponent( origin ) + '?http_envelope=1&check_wpcom=1' ).done( function( response ) {
+		if ( 'undefined' === typeof response.code || 200 !== response.code || 'undefined' === typeof response.body.isWPcom || true !== response.body.isWPcom ) {
+			window.removeEventListener( 'message', receiveMessage );
+			buffer = [];
+			return;
+		}
+		bufferMessage = false;
+		emptyBuffer();
+	} );
+}
+
+sendMessage = function( callback, sendAsString ) {
+	return function( data ) {
+		var info;
+		if ( sendAsString ) {
+			info = JSON.stringify( [ data.body, data.code, callback ] );
+		} else {
+			info = [ data.body, data.code, callback ];
+		}
+
+		if ( !usePM ) {
+			window.parent.postMessage( info, origin );
+		} else {
+			pm( {
+				data:   info,
+				type:   'proxy',
+				target: window.parent,
+				origin: origin
+			} );
+		}
+	}
+};
+
+sendError = function( callback, sendAsString ) {
+	return function() {
+		var info;
+		if ( sendAsString ) {
+			info = JSON.stringify( [ 'error', 0, callback ] );
+		} else {
+			info = [ 'error', 0, callback ];
+		}
+
+		if ( !usePM ) {
+			window.parent.postMessage( info, origin );
+		} else {
+			pm( {
+				data:   info,
+				type:   'proxy',
+				target: window.parent,
+				origin: origin
+			} );
+		}
+	}
+};
+
+})();
+</script>
+</head>
+<body>
+</body></html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://hswi13.referata.com/wiki/Main_Page -->
+<html lang="en" dir="ltr" class="client-js" version="HTML+RDFa 1.0" style="height: 633px; margin-top: 34px !important;" toolbar_fixed="1"><script>(function docInject_start() {
+        var toolbarHeight = 35,
+			windowHeightMinusToolbar = document.documentElement.clientHeight - toolbarHeight,
+			measurer;
+
+        window.addEventListener('load', function () {
+            window.toolbarLoad = true;
+
+            // measurer is used to calculate the height of the page's contents. The height is used to detect scrolling:
+            measurer = document.createElement('div');
+            measurer.id = "toolbar_measurer";
+            measurer.className = "SkipThisFixedPosition";
+            measurer.style.position = 'fixed';
+            measurer.style.bottom = '0';
+            document.body.appendChild(measurer);
+
+
+
+        }, false);
+        window.addEventListener('resize', function () {
+            // The HTML element's height should be the window height minus the toolbars' height:
+            document.documentElement.style.pixelHeight = getHeight();
+        }, false);
+
+        function getHeight() {
+
+            if (measurer) {
+                measurer.style.display = "block";
+                return Math.max(measurer.getClientRects()[0].bottom, 0);
+            }
+
+            return windowHeightMinusToolbar;
+        }
+
+
+
+
+        // If the HTML's height is queried by the page's scripts, return it without the toolbars' height
+
+
+
+        document.documentElement.__defineGetter__('clientHeight', function () {
+            return getHeight();
+        });
+        window.__defineGetter__('innerHeight', function () {
+            return getHeight();
+        });
+
+
+        // When client rects are requested by the page's scripts, they should be modified to reflect the toolbar(s):
+        var gc = HTMLElement.prototype.getClientRects;
+        HTMLElement.prototype.getClientRects = function () {
+            var res = gc.apply(this, arguments);
+            if (res && res.length)
+                res = res[0];
+            else
+                return null;
+
+
+            return [{
+                top: res.top - toolbarHeight,
+                left: res.left,
+                bottom: res.bottom - toolbarHeight,
+                right: res.right,
+                height: res.height,
+                width: res.width
+            }]
+        };
+        var gbc = HTMLElement.prototype.getBoundingClientRect;
+        HTMLElement.prototype.getBoundingClientRect = function () {
+            var res = gbc.apply(this, arguments);
+            res.topVal = res.top - toolbarHeight;
+            res.bottomVal = res.bottom - toolbarHeight;
+            res.__defineGetter__('top', function () {
+                return this.topVal;
+            });
+            res.__defineGetter__('bottom', function () {
+                return this.bottomVal;
+            });
+            return res;
+        };
+
+        var wrappedMouseMoveHandlers = [];
+
+        // Mouse move events are wrapped, so the pageY takes into account the toolbars' height (for mouseenter/mouseleave events, for example):
+        function wrapMouseMove(owner) {
+            var origAddEvent = owner.addEventListener,
+				origRemoveEvent = owner.removeEventListener;
+
+            owner.addEventListener = function (eventName, handler, useCapture) {
+                if (eventName == 'mousemove') {
+                    var wrapper = function (e) {
+                        e.stopPropagation();
+
+                        var ee = document.createEvent('MouseEvents');
+                        ee.initMouseEvent(e.type, e.cancelBubble, e.cancelable, e.view, e.detail, e.screenX, e.screenY, e.clientX, e.clientY - toolbarHeight, e.ctrlKey, e.altKey, e.shiftKey, e.metaKey, e.button, e.relatedTarget);
+                        ee.__defineGetter__("target", function () { return e.target });
+                        ee.__defineGetter__("srcElement", function () { return e.srcElement; });
+                        ee.__defineGetter__("toElement", function () { return e.toElement });
+                        handler.call(e.target, ee);
+                    };
+
+                    wrappedMouseMoveHandlers.push({ orig: handler, wrapped: wrapper });
+                    return origAddEvent.call(this, eventName, wrapper, useCapture);
+                } else origAddEvent.apply(this, arguments);
+            }
+
+            owner.removeEventListner = function (eventName, listener, useCapture) {
+                if (eventName === "mousemove") {
+                    for (var i = 0, count = wrappedMouseMoveHandlers.length; i < count; i++) {
+                        var handlerPair = wrappedMouseMoveHandlers[i];
+                        if (handlerPair.orig === listener) {
+                            wrappedMouseMoveHandlers.splice(i, 1);
+                            return origRemoveEvent.call(this, eventName, handlerPair.wrapped, useCapture);
+                        }
+                    }
+
+                    return origRemoveEvent.apply(this, arguments);
+                } else origRemoveEvent.apply(this, arguments);
+            }
+        }
+
+        if (window.location.href.indexOf("docs.google.com") === -1 && window.location.href.indexOf("f-i.com/broadway/iPad/") === -1) {
+            wrapMouseMove(Node.prototype);
+            wrapMouseMove(window.constructor.prototype);
+        }
+    })()</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Human-Semantic Web Interaction Workshop 2013</title>
+<meta charset="UTF-8">
+<meta name="generator" content="MediaWiki 1.19.2">
+<link rel="shortcut icon" href="http://hswi13.referata.com/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://roberto.referata.com/w/opensearch_desc.php" title="Human-Semantic Web Interaction Workshop 2013 (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://roberto.referata.com/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/us/">
+<link rel="alternate" type="application/atom+xml" title="Human-Semantic Web Interaction Workshop 2013 Atom feed" href="http://hswi13.referata.com/w/index.php?title=Special:RecentChanges&feed=atom">
+<link rel="stylesheet" href="http://hswi13.referata.com/w/load.php?debug=false&lang=en&modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.referencebook&only=styles&skin=referencebook&*">
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/w/skins/monobook/IE50Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/w/skins/monobook/IE55Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/w/skins/monobook/IE60Fixes.css?303" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/w/skins/monobook/IE70Fixes.css?303" media="screen" /><![endif]-->
+<link rel="stylesheet" href="http://hswi13.referata.com/w/extensions/HeaderTabs/skins-jquery/ext.headertabs.jquery-large.css"><style type="text/css" media="all">.js-messagebox{margin:1em 5%;padding:0.5em 2.5%;border:1px solid #ccc;background-color:#fcfcfc;font-size:0.8em}.js-messagebox .js-messagebox-group{margin:1px;padding:0.5em 2.5%;border-bottom:1px solid #ddd}.js-messagebox .js-messagebox-group:last-child{border-bottom:thin none transparent}
+
+/* cache key: yaron57_roberto:resourceloader:filter:minify-css:7:8b08bdc91c52a9ffba396dccfb5b473c */
+
+
+.mw-collapsible-toggle{float:right} li .mw-collapsible-toggle{float:none} .mw-collapsible-toggle-li{list-style:none}
+
+/* cache key: yaron57_roberto:resourceloader:filter:minify-css:7:4250852ed2349a0d4d0fc6509a3e7d4c */
+
+
+.ui-helper-hidden{display:none}.ui-helper-hidden-accessible{position:absolute !important;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px)}.ui-helper-reset{margin:0;padding:0;border:0;outline:0;line-height:1.3;text-decoration:none;font-size:100%;list-style:none}.ui-helper-clearfix:before,.ui-helper-clearfix:after{content:"";display:table}.ui-helper-clearfix:after{clear:both}.ui-helper-clearfix{zoom:1}.ui-helper-zfix{width:100%;height:100%;top:0;left:0;position:absolute;opacity:0;filter:Alpha(Opacity=0)} .ui-state-disabled{cursor:default !important}  .ui-icon{display:block;text-indent:-99999px;overflow:hidden;background-repeat:no-repeat}  .ui-widget-overlay{position:absolute;top:0;left:0;width:100%;height:100%}  .ui-widget{font-family:Verdana,Arial,sans-serif;font-size:1.1em}.ui-widget .ui-widget{font-size:1em}.ui-widget input,.ui-widget select,.ui-widget textarea,.ui-widget button{font-family:Verdana,Arial,sans-serif;font-size:1em}.ui-widget-content{border:1px solid #aaaaaa;background:#ffffff url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_flat_75_ffffff_40x100.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;color:#222222}.ui-widget-content a{color:#222222}.ui-widget-header{border:1px solid #aaaaaa;background:#cccccc url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_highlight-soft_75_cccccc_1x100.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;color:#222222;font-weight:bold}.ui-widget-header a{color:#222222} .ui-state-default,.ui-widget-content .ui-state-default,.ui-widget-header .ui-state-default{border:1px solid #d3d3d3;background:#e6e6e6 url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_glass_75_e6e6e6_1x400.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;font-weight:normal;color:#555555}.ui-state-default a,.ui-state-default a:link,.ui-state-default a:visited{color:#555555;text-decoration:none}.ui-state-hover,.ui-widget-content .ui-state-hover,.ui-widget-header .ui-state-hover,.ui-state-focus,.ui-widget-content .ui-state-focus,.ui-widget-header .ui-state-focus{border:1px solid #999999;background:#dadada url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_glass_75_dadada_1x400.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;font-weight:normal;color:#212121}.ui-state-hover a,.ui-state-hover a:hover{color:#212121;text-decoration:none}.ui-state-active,.ui-widget-content .ui-state-active,.ui-widget-header .ui-state-active{border:1px solid #aaaaaa;background:#ffffff url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_glass_65_ffffff_1x400.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;font-weight:normal;color:#212121}.ui-state-active a,.ui-state-active a:link,.ui-state-active a:visited{color:#212121;text-decoration:none}.ui-widget :active{outline:none} .ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight{border:1px solid #fcefa1;background:#fbf9ee url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_glass_55_fbf9ee_1x400.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;color:#363636}.ui-state-highlight a,.ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a{color:#363636}.ui-state-error,.ui-widget-content .ui-state-error,.ui-widget-header .ui-state-error{border:1px solid #cd0a0a;background:#fef1ec url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_glass_95_fef1ec_1x400.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;color:#cd0a0a}.ui-state-error a,.ui-widget-content .ui-state-error a,.ui-widget-header .ui-state-error a{color:#cd0a0a}.ui-state-error-text,.ui-widget-content .ui-state-error-text,.ui-widget-header .ui-state-error-text{color:#cd0a0a}.ui-priority-primary,.ui-widget-content .ui-priority-primary,.ui-widget-header .ui-priority-primary{font-weight:bold}.ui-priority-secondary,.ui-widget-content .ui-priority-secondary,.ui-widget-header .ui-priority-secondary{opacity:.7;filter:Alpha(Opacity=70);font-weight:normal}.ui-state-disabled,.ui-widget-content .ui-state-disabled,.ui-widget-header .ui-state-disabled{opacity:.35;filter:Alpha(Opacity=35);background-image:none}  .ui-icon{width:16px;height:16px;background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_222222_256x240.png?2012-08-02T21:05:00Z)}.ui-widget-content .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_222222_256x240.png?2012-08-02T21:05:00Z)}.ui-widget-header .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_222222_256x240.png?2012-08-02T21:05:00Z)}.ui-state-default .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_888888_256x240.png?2012-08-02T21:05:00Z)}.ui-state-hover .ui-icon,.ui-state-focus .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_454545_256x240.png?2012-08-02T21:05:00Z)}.ui-state-active .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_454545_256x240.png?2012-08-02T21:05:00Z)}.ui-state-highlight .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_2e83ff_256x240.png?2012-08-02T21:05:00Z)}.ui-state-error .ui-icon,.ui-state-error-text .ui-icon{background-image:url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-icons_cd0a0a_256x240.png?2012-08-02T21:05:00Z)} .ui-icon-carat-1-n{background-position:0 0}.ui-icon-carat-1-ne{background-position:-16px 0}.ui-icon-carat-1-e{background-position:-32px 0}.ui-icon-carat-1-se{background-position:-48px 0}.ui-icon-carat-1-s{background-position:-64px 0}.ui-icon-carat-1-sw{background-position:-80px 0}.ui-icon-carat-1-w{background-position:-96px 0}.ui-icon-carat-1-nw{background-position:-112px 0}.ui-icon-carat-2-n-s{background-position:-128px 0}.ui-icon-carat-2-e-w{background-position:-144px 0}.ui-icon-triangle-1-n{background-position:0 -16px}.ui-icon-triangle-1-ne{background-position:-16px -16px}.ui-icon-triangle-1-e{background-position:-32px -16px}.ui-icon-triangle-1-se{background-position:-48px -16px}.ui-icon-triangle-1-s{background-position:-64px -16px}.ui-icon-triangle-1-sw{background-position:-80px -16px}.ui-icon-triangle-1-w{background-position:-96px -16px}.ui-icon-triangle-1-nw{background-position:-112px -16px}.ui-icon-triangle-2-n-s{background-position:-128px -16px}.ui-icon-triangle-2-e-w{background-position:-144px -16px}.ui-icon-arrow-1-n{background-position:0 -32px}.ui-icon-arrow-1-ne{background-position:-16px -32px}.ui-icon-arrow-1-e{background-position:-32px -32px}.ui-icon-arrow-1-se{background-position:-48px -32px}.ui-icon-arrow-1-s{background-position:-64px -32px}.ui-icon-arrow-1-sw{background-position:-80px -32px}.ui-icon-arrow-1-w{background-position:-96px -32px}.ui-icon-arrow-1-nw{background-position:-112px -32px}.ui-icon-arrow-2-n-s{background-position:-128px -32px}.ui-icon-arrow-2-ne-sw{background-position:-144px -32px}.ui-icon-arrow-2-e-w{background-position:-160px -32px}.ui-icon-arrow-2-se-nw{background-position:-176px -32px}.ui-icon-arrowstop-1-n{background-position:-192px -32px}.ui-icon-arrowstop-1-e{background-position:-208px -32px}.ui-icon-arrowstop-1-s{background-position:-224px -32px}.ui-icon-arrowstop-1-w{background-position:-240px -32px}.ui-icon-arrowthick-1-n{background-position:0 -48px}.ui-icon-arrowthick-1-ne{background-position:-16px -48px}.ui-icon-arrowthick-1-e{background-position:-32px -48px}.ui-icon-arrowthick-1-se{background-position:-48px -48px}.ui-icon-arrowthick-1-s{background-position:-64px -48px}.ui-icon-arrowthick-1-sw{background-position:-80px -48px}.ui-icon-arrowthick-1-w{background-position:-96px -48px}.ui-icon-arrowthick-1-nw{background-position:-112px -48px}.ui-icon-arrowthick-2-n-s{background-position:-128px -48px}.ui-icon-arrowthick-2-ne-sw{background-position:-144px -48px}.ui-icon-arrowthick-2-e-w{background-position:-160px -48px}.ui-icon-arrowthick-2-se-nw{background-position:-176px -48px}.ui-icon-arrowthickstop-1-n{background-position:-192px -48px}.ui-icon-arrowthickstop-1-e{background-position:-208px -48px}.ui-icon-arrowthickstop-1-s{background-position:-224px -48px}.ui-icon-arrowthickstop-1-w{background-position:-240px -48px}.ui-icon-arrowreturnthick-1-w{background-position:0 -64px}.ui-icon-arrowreturnthick-1-n{background-position:-16px -64px}.ui-icon-arrowreturnthick-1-e{background-position:-32px -64px}.ui-icon-arrowreturnthick-1-s{background-position:-48px -64px}.ui-icon-arrowreturn-1-w{background-position:-64px -64px}.ui-icon-arrowreturn-1-n{background-position:-80px -64px}.ui-icon-arrowreturn-1-e{background-position:-96px -64px}.ui-icon-arrowreturn-1-s{background-position:-112px -64px}.ui-icon-arrowrefresh-1-w{background-position:-128px -64px}.ui-icon-arrowrefresh-1-n{background-position:-144px -64px}.ui-icon-arrowrefresh-1-e{background-position:-160px -64px}.ui-icon-arrowrefresh-1-s{background-position:-176px -64px}.ui-icon-arrow-4{background-position:0 -80px}.ui-icon-arrow-4-diag{background-position:-16px -80px}.ui-icon-extlink{background-position:-32px -80px}.ui-icon-newwin{background-position:-48px -80px}.ui-icon-refresh{background-position:-64px -80px}.ui-icon-shuffle{background-position:-80px -80px}.ui-icon-transfer-e-w{background-position:-96px -80px}.ui-icon-transferthick-e-w{background-position:-112px -80px}.ui-icon-folder-collapsed{background-position:0 -96px}.ui-icon-folder-open{background-position:-16px -96px}.ui-icon-document{background-position:-32px -96px}.ui-icon-document-b{background-position:-48px -96px}.ui-icon-note{background-position:-64px -96px}.ui-icon-mail-closed{background-position:-80px -96px}.ui-icon-mail-open{background-position:-96px -96px}.ui-icon-suitcase{background-position:-112px -96px}.ui-icon-comment{background-position:-128px -96px}.ui-icon-person{background-position:-144px -96px}.ui-icon-print{background-position:-160px -96px}.ui-icon-trash{background-position:-176px -96px}.ui-icon-locked{background-position:-192px -96px}.ui-icon-unlocked{background-position:-208px -96px}.ui-icon-bookmark{background-position:-224px -96px}.ui-icon-tag{background-position:-240px -96px}.ui-icon-home{background-position:0 -112px}.ui-icon-flag{background-position:-16px -112px}.ui-icon-calendar{background-position:-32px -112px}.ui-icon-cart{background-position:-48px -112px}.ui-icon-pencil{background-position:-64px -112px}.ui-icon-clock{background-position:-80px -112px}.ui-icon-disk{background-position:-96px -112px}.ui-icon-calculator{background-position:-112px -112px}.ui-icon-zoomin{background-position:-128px -112px}.ui-icon-zoomout{background-position:-144px -112px}.ui-icon-search{background-position:-160px -112px}.ui-icon-wrench{background-position:-176px -112px}.ui-icon-gear{background-position:-192px -112px}.ui-icon-heart{background-position:-208px -112px}.ui-icon-star{background-position:-224px -112px}.ui-icon-link{background-position:-240px -112px}.ui-icon-cancel{background-position:0 -128px}.ui-icon-plus{background-position:-16px -128px}.ui-icon-plusthick{background-position:-32px -128px}.ui-icon-minus{background-position:-48px -128px}.ui-icon-minusthick{background-position:-64px -128px}.ui-icon-close{background-position:-80px -128px}.ui-icon-closethick{background-position:-96px -128px}.ui-icon-key{background-position:-112px -128px}.ui-icon-lightbulb{background-position:-128px -128px}.ui-icon-scissors{background-position:-144px -128px}.ui-icon-clipboard{background-position:-160px -128px}.ui-icon-copy{background-position:-176px -128px}.ui-icon-contact{background-position:-192px -128px}.ui-icon-image{background-position:-208px -128px}.ui-icon-video{background-position:-224px -128px}.ui-icon-script{background-position:-240px -128px}.ui-icon-alert{background-position:0 -144px}.ui-icon-info{background-position:-16px -144px}.ui-icon-notice{background-position:-32px -144px}.ui-icon-help{background-position:-48px -144px}.ui-icon-check{background-position:-64px -144px}.ui-icon-bullet{background-position:-80px -144px}.ui-icon-radio-off{background-position:-96px -144px}.ui-icon-radio-on{background-position:-112px -144px}.ui-icon-pin-w{background-position:-128px -144px}.ui-icon-pin-s{background-position:-144px -144px}.ui-icon-play{background-position:0 -160px}.ui-icon-pause{background-position:-16px -160px}.ui-icon-seek-next{background-position:-32px -160px}.ui-icon-seek-prev{background-position:-48px -160px}.ui-icon-seek-end{background-position:-64px -160px}.ui-icon-seek-start{background-position:-80px -160px} .ui-icon-seek-first{background-position:-80px -160px}.ui-icon-stop{background-position:-96px -160px}.ui-icon-eject{background-position:-112px -160px}.ui-icon-volume-off{background-position:-128px -160px}.ui-icon-volume-on{background-position:-144px -160px}.ui-icon-power{background-position:0 -176px}.ui-icon-signal-diag{background-position:-16px -176px}.ui-icon-signal{background-position:-32px -176px}.ui-icon-battery-0{background-position:-48px -176px}.ui-icon-battery-1{background-position:-64px -176px}.ui-icon-battery-2{background-position:-80px -176px}.ui-icon-battery-3{background-position:-96px -176px}.ui-icon-circle-plus{background-position:0 -192px}.ui-icon-circle-minus{background-position:-16px -192px}.ui-icon-circle-close{background-position:-32px -192px}.ui-icon-circle-triangle-e{background-position:-48px -192px}.ui-icon-circle-triangle-s{background-position:-64px -192px}.ui-icon-circle-triangle-w{background-position:-80px -192px}.ui-icon-circle-triangle-n{background-position:-96px -192px}.ui-icon-circle-arrow-e{background-position:-112px -192px}.ui-icon-circle-arrow-s{background-position:-128px -192px}.ui-icon-circle-arrow-w{background-position:-144px -192px}.ui-icon-circle-arrow-n{background-position:-160px -192px}.ui-icon-circle-zoomin{background-position:-176px -192px}.ui-icon-circle-zoomout{background-position:-192px -192px}.ui-icon-circle-check{background-position:-208px -192px}.ui-icon-circlesmall-plus{background-position:0 -208px}.ui-icon-circlesmall-minus{background-position:-16px -208px}.ui-icon-circlesmall-close{background-position:-32px -208px}.ui-icon-squaresmall-plus{background-position:-48px -208px}.ui-icon-squaresmall-minus{background-position:-64px -208px}.ui-icon-squaresmall-close{background-position:-80px -208px}.ui-icon-grip-dotted-vertical{background-position:0 -224px}.ui-icon-grip-dotted-horizontal{background-position:-16px -224px}.ui-icon-grip-solid-vertical{background-position:-32px -224px}.ui-icon-grip-solid-horizontal{background-position:-48px -224px}.ui-icon-gripsmall-diagonal-se{background-position:-64px -224px}.ui-icon-grip-diagonal-se{background-position:-80px -224px}  .ui-corner-all,.ui-corner-top,.ui-corner-left,.ui-corner-tl{-moz-border-radius-topleft:4px;-webkit-border-top-left-radius:4px;-khtml-border-top-left-radius:4px;border-top-left-radius:4px}.ui-corner-all,.ui-corner-top,.ui-corner-right,.ui-corner-tr{-moz-border-radius-topright:4px;-webkit-border-top-right-radius:4px;-khtml-border-top-right-radius:4px;border-top-right-radius:4px}.ui-corner-all,.ui-corner-bottom,.ui-corner-left,.ui-corner-bl{-moz-border-radius-bottomleft:4px;-webkit-border-bottom-left-radius:4px;-khtml-border-bottom-left-radius:4px;border-bottom-left-radius:4px}.ui-corner-all,.ui-corner-bottom,.ui-corner-right,.ui-corner-br{-moz-border-radius-bottomright:4px;-webkit-border-bottom-right-radius:4px;-khtml-border-bottom-right-radius:4px;border-bottom-right-radius:4px} .ui-widget-overlay{background:#aaaaaa url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_flat_0_aaaaaa_40x100.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;opacity:.3;filter:Alpha(Opacity=30)}.ui-widget-shadow{margin:-8px 0 0 -8px;padding:8px;background:#aaaaaa url(http://roberto.referata.com/w/resources/jquery.ui/themes/default/images/ui-bg_flat_0_aaaaaa_40x100.png?2012-08-02T21:05:00Z) 50% 50% repeat-x;opacity:.3;filter:Alpha(Opacity=30);-moz-border-radius:8px;-khtml-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+
+/* cache key: yaron57_roberto:resourceloader:filter:minify-css:7:76766fc67b51b60f90e87d51a71ebcee */
+
+
+.ui-tabs{position:relative;padding:.2em;zoom:1} .ui-tabs .ui-tabs-nav{margin:0;padding:.2em .2em 0}.ui-tabs .ui-tabs-nav li{list-style:none;float:left;position:relative;top:1px;margin:0 .2em 1px 0;border-bottom:0 !important;padding:0;white-space:nowrap}.ui-tabs .ui-tabs-nav li a{float:left;padding:.5em 1em;text-decoration:none}.ui-tabs .ui-tabs-nav li.ui-tabs-selected{margin-bottom:0;padding-bottom:1px}.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,.ui-tabs .ui-tabs-nav li.ui-state-disabled a,.ui-tabs .ui-tabs-nav li.ui-state-processing a{cursor:text}.ui-tabs .ui-tabs-nav li a,.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a{cursor:pointer} .ui-tabs .ui-tabs-panel{display:block;border-width:0;padding:1em 1.4em;background:none}.ui-tabs .ui-tabs-hide{display:none !important}
+
+/* cache key: yaron57_roberto:resourceloader:filter:minify-css:7:fdc78b432b6e24b0d7c2ca5fd4601f0c */
+</style><meta name="ResourceLoaderDynamicStyles" content="">
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: yaron57_roberto:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+<script src="./Human-Semantic Web Interaction Workshop 2013_files/load.php"></script><script src="./Human-Semantic Web Interaction Workshop 2013_files/load(1).php"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Main_Page","wgTitle":"Main Page","wgCurRevisionId":25,"wgArticleId":1,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Main_Page","wgRestrictionEdit":[],"wgRestrictionMove":[],"wgSearchNamespaces":[0],"wgIsMainPage":true,"htTabIndexes":[],"sfgAutocompleteValues":[],"sfgAutocompleteOnAllChars":false,"sfgFieldProperties":[],"sfgDependentFields":[],"sfgShowOnSelect":[],"sfgScriptPath":"/w/extensions/SemanticForms","sdgDownArrowImage":"/w/extensions/SemanticDrilldown/skins/down-arrow.png","sdgRightArrowImage":"/w/extensions/SemanticDrilldown/skins/right-arrow.png","egMapsDebugJS":false,"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgCategoryTreePageCategoryOptions":"{\"mode\":20,\"hideprefix\":20,\"showcount\":true,\"namespaces\":[0,6,14]}"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"referencebook","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,
+"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"swl_email":true,"swl_watchlisttoplink":true,"openid-hide":0,"openid-update-on-login-nickname":false,"openid-update-on-login-email":false,"openid-update-on-login-fullname":false,"openid-update-on-login-language":false,"openid-update-on-login-timezone":false,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs102":false,"searchNs103":false,"searchNs106":false,"searchNs107":false,"searchNs108":false,"searchNs109":false,"searchNs170":false,"searchNs171":false,"searchNs274":
+false,"searchNs275":false,"searchNs420":false,"searchNs421":false});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: yaron57_roberto:resourceloader:filter:minify-js:7:34cae242a3db0804d0204d122e5d70b5 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script><script type="text/javascript" src="./Human-Semantic Web Interaction Workshop 2013_files/load(2).php"></script>
+		<link rel="alternate" type="application/rdf+xml" title="Main Page" href="http://hswi13.referata.com/w/index.php?title=Special:ExportRDF/Main_Page&xmlmime=rdf">
+		<style type="text/css">
+		li#pt-openidlogin {
+		  background: url(/w/extensions/OpenID/skin/icons/openid-inputicon.png) top left no-repeat;
+		  padding-left: 20px;
+		  text-transform: none;
+		}
+		</style>
+<script id="__isTpiViewExists"></script><style>@media print { body { width: auto !important; } }</style><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/menu_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="menu_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"><script type="text/javascript">try{if(ups && ups.updateZIndex){ ups.updateZIndex(99996); }}catch(e){}</script><link rel="stylesheet" type="text/css" href="./Human-Semantic Web Interaction Workshop 2013_files/style.css"><link rel="stylesheet" type="text/css" href="chrome-extension://cgpnojibjokpoghebklhkdeijehkohhb/css/about.css"></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Main_Page skin-referencebook action-view" style="position: absolute; width: 1349px; height: 2305px !important;">
+<div id="globalWrapper">
+<div id="column-content"><div id="content"><div id="mw-js-message" class="js-messagebox" style="display: none;"></div>
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">Main Page</h1>
+	<div id="bodyContent">
+		<div id="siteSub">From Human-Semantic Web Interaction Workshop 2013</div>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="http://hswi13.referata.com/wiki/Main_Page#column-one">navigation</a>, <a href="http://hswi13.referata.com/wiki/Main_Page#searchInput">search</a></div>
+		<!-- start content -->
+<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2><span class="toctoggle">&nbsp;[<a href="http://hswi13.referata.com/wiki/Main_Page#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="http://hswi13.referata.com/wiki/Main_Page#Workshop_on_Human-Semantic_Web_Interaction_.28HSWI.E2.80.9913.29"><span class="tocnumber">1</span> <span class="toctext">Workshop on Human-Semantic Web Interaction (HSWI’13)</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="http://hswi13.referata.com/wiki/Main_Page#Topics_of_interest"><span class="tocnumber">1.1</span> <span class="toctext">Topics of interest</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://hswi13.referata.com/wiki/Main_Page#Submission_Types"><span class="tocnumber">1.2</span> <span class="toctext">Submission Types</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://hswi13.referata.com/wiki/Main_Page#Publication"><span class="tocnumber">1.3</span> <span class="toctext">Publication</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="http://hswi13.referata.com/wiki/Main_Page#Important_Dates"><span class="tocnumber">1.4</span> <span class="toctext">Important Dates</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="http://hswi13.referata.com/wiki/Main_Page#Workshop_Organizers"><span class="tocnumber">1.5</span> <span class="toctext">Workshop Organizers</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="http://hswi13.referata.com/wiki/Main_Page#Program_Committee"><span class="tocnumber">1.6</span> <span class="toctext">Program Committee</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></tbody></table>
+<h2> <span class="mw-headline" id="Workshop_on_Human-Semantic_Web_Interaction_.28HSWI.E2.80.9913.29"> Workshop on <a rel="nofollow" class="external text" href="http://aida.ii.uam.es/wims13/workshops.php">Human-Semantic Web Interaction (HSWI’13)</a> </span></h2>
+<p><big>
+together with the <a rel="nofollow" class="external text" href="http://aida.ii.uam.es/wims13/"><b>3rd International Conference on Web Intelligence, Mining and Semantics (WIMS'13)</b></a>
+</big></p><p><big>Jun 12-14, 2013. Madrid, Spain
+</big>
+</p><p><br>
+The adoption of Semantic Web technologies implies new challenges for user interaction beyond those already posed by Web technologies and interactive systems in general. HSWI workshop aims to explore and evaluate good practices in interface design, and ultimately feed into possible recommendations for standardizing and consolidating knowledge and good practices into a set of guidelines for semantic web developers, to ensure the usability and reasonably functional user experiences of the next generation of Semantic Web applications.
+</p>
+<table class="wikitable">
+
+<tbody><tr>
+<td> <b>Submission deadline</b>: </td>
+<td> February 7th, 2013
+</td></tr>
+<tr>
+<td> <b>Submission types</b>: </td>
+<td> full research papers, position papers, case study reports, reports of experiments, evaluation reports
+</td></tr>
+<tr>
+<td> <b>Submissions site</b>: </td>
+<td> <a rel="nofollow" class="external free" href="https://www.easychair.org/conferences/?conf=hswiwims13">https://www.easychair.org/conferences/?conf=hswiwims13</a>
+</td></tr>
+<tr>
+<td> <b>Date</b>: </td>
+<td> to be announced (but one of WIMS'13 conference days: Jun 12-14, 2013)
+</td></tr>
+<tr>
+<td> <b>Place</b>: </td>
+<td> Madrid, Spain
+</td></tr></tbody></table>
+<h3> <span class="mw-headline" id="Topics_of_interest"> Topics of interest </span></h3>
+<p>HSWI invites papers on, but not strictly limited to, the following topics:
+</p>
+<ul><li> Requirements for supporting the design and implementation of user interfaces for semanticapplications
+</li><li> Natural Language Interfaces
+</li><li> Interaction styles and requirements, including new/emergent types of interactions
+</li><li> Models for specifying structure and behavior of semantic interfaces
+</li><li> Lessons learned from developing, evaluating and using semantic interfaces
+</li><li> Defining Semantic Interfaces: concepts, requirements
+</li><li> Literature reviews and methodologies in the scope of Human-Semantic Web Interaction
+</li><li> Stakeholders perspectives
+</li><li> Sensemaking
+</li><li> Semantic search interfaces
+</li><li> Use Cases/Case Studies, best practices, evaluations
+</li><li> New web based interaction technologies (Gesture, Touch, Mind-Web Interfaces, etc.)UI/UX
+</li><li> Paradigms for semantic applications on mobile devices, taking into account on-board sensors (think: SIRI/Google Now on steroids)
+</li><li> Visualization in semantic interfaces
+</li></ul>
+<h3> <span class="mw-headline" id="Submission_Types"> Submission Types </span></h3>
+<p>For providing a forum for sharing novel ideas, HSWI welcomes a broad spectrum of contributions, including for example:
+</p>
+<ul><li> Full research papers
+</li><li> Position papers
+</li><li> Case Studies
+</li><li> Descriptions of Experiments
+</li><li> Evaluations
+</li></ul>
+<p>The authors in doubt about the relevance of the genre of their submission are invited to contact HSWI organizers. Submissions will be evaluated by the members of the international program committee. 
+</p><p>Accepted papers will be published in the proceedings of WIMS’13 (ACM).
+</p><p>Submissions must be original and should not have been published previously or be under consideration for publication while being evaluated for this workshop.
+</p><p>The maximum length of papers is at most 12 pages in ACM format. Please note that the submission format is MS Word or PDF.
+</p><p>Submit your papers through EasyChair at:
+<a rel="nofollow" class="external free" href="https://www.easychair.org/conferences/?conf=hswiwims13">https://www.easychair.org/conferences/?conf=hswiwims13</a>
+</p>
+<h3> <span class="mw-headline" id="Publication"> Publication </span></h3>
+<div class="thumb tright"><div class="thumbinner" style="width:177px;"><a href="http://hswi13.referata.com/wiki/File:ACM_logo.jpg" class="image"><img alt="" src="./Human-Semantic Web Interaction Workshop 2013_files/ACM_logo.jpg" width="175" height="112" class="thumbimage"></a>  <div class="thumbcaption"><div class="magnify"><a href="http://hswi13.referata.com/wiki/File:ACM_logo.jpg" class="internal" title="Enlarge"><img src="./Human-Semantic Web Interaction Workshop 2013_files/magnify-clip.png" width="15" height="11" alt=""></a></div><a rel="nofollow" class="external text" href="http://www.acm.org/sigs/publications/proceedings-templates">ACM ICPS</a></div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:176px;"><a href="http://hswi13.referata.com/wiki/File:Swj-logo.png" class="image"><img alt="" src="./Human-Semantic Web Interaction Workshop 2013_files/Swj-logo.png" width="174" height="110" class="thumbimage"></a>  <div class="thumbcaption"><div class="magnify"><a href="http://hswi13.referata.com/wiki/File:Swj-logo.png" class="internal" title="Enlarge"><img src="./Human-Semantic Web Interaction Workshop 2013_files/magnify-clip.png" width="15" height="11" alt=""></a></div><a rel="nofollow" class="external text" href="http://www.semantic-web-journal.net/blog/special-issue-call-semantic-web-interfaces">Semantic Web Journal SWI SI</a></div></div></div>
+<p>Contributions will be selected based upon their quality as evaluated by 2-3 referees. Accepted papers will be published in the proceedings of WIMS’13, part of the International Conference Proceedings Series
+published by ACM. The papers/proposals must be written in English and formatted according to the ACM guidelines. Author instructions and style files can be downloaded at:
+<a rel="nofollow" class="external free" href="http://www.acm.org/sigs/publications/proceedings-templates">http://www.acm.org/sigs/publications/proceedings-templates</a>
+</p><p>At least one author of accepted papers is required to register at the conference.
+</p><p>Selected best papers will be considered for inclusion in a special issue of the Semantic Web Journal (SWJ) on <a rel="nofollow" class="external text" href="http://www.semantic-web-journal.net/blog/special-issue-call-semantic-web-interfaces">Semantic Interfaces</a>.
+</p>
+<h3> <span class="mw-headline" id="Important_Dates"> Important Dates </span></h3>
+<p>07.02.2013 – workshop papers submission deadline
+</p><p>10.03.2013 – notification of acceptance for Workshop papers
+</p><p>30.03.2013 – submission of camera ready versions of accepted Workshop papers
+</p><p>12-14.06.2013 – conference days
+</p>
+<h3> <span class="mw-headline" id="Workshop_Organizers"> Workshop Organizers </span></h3>
+<p>Roberto Garcia (roberto dot garcia at udl dot cat), Universitat de Lleida, Spain
+</p><p>Paola Di Maio (paola dot_))8 dimaio  gmail dot com), ISTCS.org, UK
+</p><p>Heiko Paulheim (paulheim at ke dot tu-darmstadt dot de), TU Darmstadt, Germany
+</p>
+<h3> <span class="mw-headline" id="Program_Committee"> Program Committee </span></h3>
+<p>Tru Cao, Vietnam National University - HCM City, Vietnam
+</p><p>Stephen Cranefield, University of Otago,  New Zealand
+</p><p>Aba-Sah Dadzie, The University of Sheffield, UK
+</p><p>Ian Dickinson, Epimorphics, UK
+</p><p>Nima Dokoohaki, Royal Institute of Technology, Sweden
+</p><p>Rosa Gil, Universitat de Lleida, Spain
+</p><p>Toni Granollers, Universitat de Lleida, Spain
+</p><p>Paul Hermans, ProXML, Belgium
+</p><p>Ghislain Hachey, Athabasca University, Canada
+</p><p>Eero Hyvönen, Aalto University and University of Helsinki, Finland
+</p><p>Anna Jordanous, King's College London, UK
+</p><p>Hanmin Jung, Korea Institute of Science and Technology Information, Korea
+</p><p>Ora Lassila, Nokia, USA
+</p><p>Paul Mulholland, The Open University, UK
+</p><p>Han Woo Park, YeungNam University, South Korea
+</p><p>Lloyd Rutledge, Open Universiteit, The Netherlands
+</p><p>Jiao Tao, Oracle, USA
+</p><p>Jenny Ure, Queen's Medical Research Institute - UoE, Scotland
+</p><p>Martin Voigt, TU Dresden, Germany
+</p><p>Haofen Wang, Apex SJTU, China
+</p><p>...
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 26/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key yaron57_roberto:pcache:idhash:1-0!*!*!!en!2!* and timestamp 20130111142234 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://hswi13.referata.com/w/index.php?title=Main_Page&oldid=25">http://hswi13.referata.com/w/index.php?title=Main_Page&amp;oldid=25</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				<li id="ca-nstab-main" class="selected"><a href="./Human-Semantic Web Interaction Workshop 2013_files/Human-Semantic Web Interaction Workshop 2013.htm" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				<li id="ca-talk" class="new"><a href="http://hswi13.referata.com/w/index.php?title=Talk:Main_Page&action=edit&redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				<li id="ca-viewsource"><a href="http://hswi13.referata.com/w/index.php?title=Main_Page&action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				<li id="ca-history"><a href="http://hswi13.referata.com/w/index.php?title=Main_Page&action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="http://hswi13.referata.com/w/index.php?title=Special:UserLogin&returnto=Main+Page" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+				<li id="pt-openidlogin"><a href="http://hswi13.referata.com/w/index.php?title=Special:OpenIDLogin&returnto=Main_Page">Log in / create account with OpenID</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a title="Visit the main page" style="background-image: url(http://roberto.referata.com/w/skins/common/images/logos/hswi.jpg);" href="./Human-Semantic Web Interaction Workshop 2013_files/Human-Semantic Web Interaction Workshop 2013.htm"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-mainpage-description"><a href="./Human-Semantic Web Interaction Workshop 2013_files/Human-Semantic Web Interaction Workshop 2013.htm" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+				<li id="n-portal"><a href="http://hswi13.referata.com/wiki/hswi13:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+				<li id="n-currentevents"><a href="http://hswi13.referata.com/wiki/hswi13:Current_events" title="Find background information on current events">Current events</a></li>
+				<li id="n-recentchanges"><a href="http://hswi13.referata.com/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="http://hswi13.referata.com/wiki/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="http://hswi13.referata.com/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="http://hswi13.referata.com/w/index.php" id="searchform">
+				<input type="hidden" name="title" value="Special:Search">
+				<input type="search" name="search" title="Search Human-Semantic Web Interaction Workshop 2013 [alt-shift-f]" accesskey="f" id="searchInput" autocomplete="off">
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton">&nbsp;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://hswi13.referata.com/wiki/Special:WhatLinksHere/Main_Page" title="A list of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://hswi13.referata.com/wiki/Special:RecentChangesLinked/Main_Page" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+				<li id="t-specialpages"><a href="http://hswi13.referata.com/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li><a href="http://hswi13.referata.com/w/index.php?title=Main_Page&printable=yes" rel="alternate">Printable version</a></li>
+				<li id="t-permalink"><a href="http://hswi13.referata.com/w/index.php?title=Main_Page&oldid=25" title="Permanent link to this revision of the page">Permanent link</a></li>
+<li id="t-smwbrowselink"><a href="http://hswi13.referata.com/wiki/Special:Browse/Main_Page" title="Special:Browse/Main Page">Browse properties</a></li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-copyrightico">
+		<a href="http://www.referata.com/"><img src="./Human-Semantic Web Interaction Workshop 2013_files/hosted_by_referata.png" alt="Hosted by Referata"></a>
+	</div>
+	<div id="f-poweredbyico">
+		<a href="http://www.mediawiki.org/"><img src="./Human-Semantic Web Interaction Workshop 2013_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+		<a href="http://www.semantic-mediawiki.org/wiki/Semantic_MediaWiki"><img src="./Human-Semantic Web Interaction Workshop 2013_files/smw_button.png" alt="Powered by Semantic MediaWiki" width="88" height="31"></a>
+	</div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on January 11, 2013, at 14:19.</li>
+		<li id="viewcount">This page has been accessed 1,846 times.</li>
+		<li id="copyright">Content is available under <a class="external" href="http://creativecommons.org/licenses/by-sa/3.0/us/">Creative Commons CC-BY-SA 3 license</a>.</li>
+		<li id="privacy"><a href="http://hswi13.referata.com/wiki/hswi13:Privacy_policy" title="hswi13:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://hswi13.referata.com/wiki/hswi13:About" title="hswi13:About">About Human-Semantic Web Interaction Workshop 2013</a></li>
+		<li id="disclaimer"><a href="http://hswi13.referata.com/wiki/hswi13:General_disclaimer" title="hswi13:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.legacy.mwsuggest","ext.headertabs"], null, true);
+}</script><script src="./Human-Semantic Web Interaction Workshop 2013_files/load(3).php" type="text/javascript"></script><script src="./Human-Semantic Web Interaction Workshop 2013_files/load(4).php" type="text/javascript"></script>
+<style type="text/css">body {
+	background: #FFFFFF;
+	background-color: #FFFFFF;
+}
+#mw-page-base {
+	background-color: #FFFFFF;
+	background-image: none;
+}
+.pBody {background-color: #FFFFFF;} .pBody {border-color: #FFFFFF;} </style>
+
+<!-- Served in 0.340 secs. --><div id="toolbar_measurer" class="SkipThisFixedPosition" style="position: fixed; bottom: 0px;"></div><script>(function docInject_end(){ var toolbarHeight = 34, foundAttribute = 'fixed_managed'; function fixedIntervalCallback(el) {
+                                var styleTop = el.style.top,
+			styleTopInt = parseInt(styleTop, 10);
+
+                                if (typeof (el.prevTop) !== 'undefined' && !isNaN(styleTopInt) && ((el.prevTop !== styleTop && (styleTop === '0' || /^\d+\s?px/.test(styleTop))))) {
+
+                                    el.prevTop = el.style.top = (styleTopInt + toolbarHeight) + 'px';
+                                }
+                            }function moveFixed(el) {
+
+                                var foundId = el.getAttribute(foundAttribute),
+			exceptionFoundId = ! ~['0', '3'].indexOf(foundId),
+			changeStatus,
+			comp = window.getComputedStyle(el, null),
+			isFixed = /^fixed/.test(comp.position),
+            numberOfToolbars = localStorage.getItem("numberOfWebToolbars") ? localStorage.getItem("numberOfWebToolbars") : 1;
+
+
+                                /*
+                                * Function: getElementPriority
+                                * Description: Itreate through the stylesheets in the dom and search for specific top element priority
+                                * Parameters: Element(Node) 
+                                */
+                                var getElementPriority = function (el) {
+                                    var priority = null;
+                                    var stylesheets = document.styleSheets;
+                                    var rules = null;
+
+                                    var sId = '#' + el.id;
+                                    var sClass = '\.' + el.className;
+
+                                    var regEx = new RegExp("(^" + sId + "$|^" + sClass + "$|^" + sId + "[\s]{0,}" + sClass + "$|^" + sClass + "[\s]{0,}" + sId + "$)");
+
+                                    for (var i = 0; i < stylesheets.length; ++i) {
+                                        rules = stylesheets[i].rules || stylesheets[i].cssRules;
+
+                                        if (rules && rules.length) {
+                                            for (var c = 0; c < rules.length; ++c) {
+
+                                                if (regEx.test(rules[c].selectorText) && rules[c].style.getPropertyCSSValue("top") !== null) {
+                                                    priority = rules[c].style.getPropertyPriority("top");
+                                                    return priority;
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+
+
+                                if (foundId) { //Check if we already fix this element
+                                    changeStatus = isFixed && foundId === '0' || !isFixed && foundId !== '0'
+                                }
+
+
+                                //SkipThisFixedPosition class use to avoid fixed elements that we doesn't want to decrease their top offset 
+
+                                if (/SkipThisFixedPosition/.test(el.className) || (foundId && exceptionFoundId && !changeStatus) || el.nodeType !== 1)
+                                    return false;
+
+                                if (isFixed) {
+                                    //for popups to be on top
+                                    el.setAttribute(foundAttribute, '1');
+
+
+                                    if (!/%/.test(comp.top)) { //if property value isn't percentage
+
+                                        //Check the priority off the CSS Property
+                                        if (el.style.getPropertyPriority("top") == "important" || getElementPriority(el) == "important") {
+                                            el.style.setProperty("top", (parseInt(comp.top, 10) + toolbarHeight * numberOfToolbars) + 'px', "important");
+                                        } else {
+                                            el.style.setProperty("top", (parseInt(comp.top, 10) + toolbarHeight * numberOfToolbars) + 'px');
+                                        }
+                                    }
+
+                                    if (typeof (el.prevTop) === 'undefined') {
+                                        el.prevTop = comp.top; //Save the last top of the element
+
+                                    /*path to fix bug 3455 - the element has css 3 property webkit transition and thats why
+                                    the computed top doesn't reflect the real element size and calling the below function causes infinte loop  */
+                                    if(el.className.indexOf("fbTimelineStickyHeader")!=-1&&window.location.href.indexOf("facebook.com")!=-1){
+                                    }else{
+                                        //patch for avoiding setInterval (calling setTimeout in recursion)
+                                        var FIXED_INTERVAL_CALLBACK_INTERVAL = 100; // in ms.
+                                        var fixedIntervalCallbackWrapper = function () {
+                                            fixedIntervalCallback(el);
+                                            setTimeout(fixedIntervalCallbackWrapper, FIXED_INTERVAL_CALLBACK_INTERVAL);
+                                        }
+                                        setTimeout(fixedIntervalCallbackWrapper, FIXED_INTERVAL_CALLBACK_INTERVAL);
+                                        }
+                                    }
+                                } else if (foundId) { //If we itreate through the element but is not fix
+                                    if (foundId !== "0" && el.prevTop !== undefined) {
+                                        el.style.removeProperty('top');
+
+                                        el.setAttribute(foundAttribute, '0');
+                                        el.prevTop = undefined;
+                                    }
+                                }
+
+                            } var allChildren = document.getElementsByTagName('*'); for(var i=0, count=allChildren.length; i<count; i++){ var el = allChildren[i]; if (el.nodeType === 1 && !/SkipThisFixedPosition/.test(el.className)){ el.__defineSetter__('className', function(val){ this.setAttribute('class', val); moveFixed(this); var children = this.getElementsByTagName('*'); for(var i=0, count=children.length; i < count; i++){ moveFixed(children[i]); } }); el.__defineGetter__('className', function(){ return this.getAttribute('class') || ''; }); } } })();</script><div id="paypixy-icon" class="search" style="position: fixed; top: 34px; right: 0px; z-index: 2147483640; cursor: pointer;" fixed_managed="2"><span id="paypixy-icon-link" href="#" title="View all offers from paypixy.com"><img src="./Human-Semantic Web Interaction Workshop 2013_files/pay_pixy_logo_small_flipped.png"></span></div><div class="SkipThisFixedPosition main-iframe-wrapper" id="main-iframe-wrapper" background="chrome-extension://cgpnojibjokpoghebklhkdeijehkohhb/screenShot.png" style="z-index: 2147483644; top: 0px; left: 0px; margin: 0px; line-height: 0; display: block !important; width: 100%; height: 34px; position: fixed;"></div><div id="mainContainer_CTID"><div class="fixedDiv UrlGadgetsDiv" style="position: fixed; left: 0px; z-index: 2147483640; top: 34px !important;" fixed_managed="2"></div><div class="fixedDiv SkipThisFixedPosition GeneralGadgetsDiv" style="position: fixed; left: 0px; z-index: 2147483644; width: 100%; top: 34px !important;"></div></div><div class="SkipThisFixedPosition top-iframe-wrapper" style="width: 100%; height: 34px; position: fixed; z-index: 2147483647; left: 0px; display: block; top: 0px !important;"><iframe class="TOOLBAR_IFRAME" id="T_0.0977097952272743" frameborder="0" scrolling="no" style="width: 100%; height: 100%; min-height: 100%; line-height: 0; position: absolute; left: 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgba(0, 0, 0, 0.294118); margin: 0px !important; display: block; top: 0px !important;" src="./Human-Semantic Web Interaction Workshop 2013_files/container.htm"></iframe></div></body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1" hightlightingswitched="0"></span><object id="skype_plugin_object" location.href="http://hswi13.referata.com/wiki/Main_Page" location.hostname="hswi13.referata.com" style="position: absolute; visibility: hidden; left: -100px; top: -100px;" width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>

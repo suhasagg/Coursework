@@ -1,0 +1,954 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@font-face {
+ font-family: 'RupeeForadianRegular';
+ src: url('https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/rupee_foradian-webfont.eot');
+ src: url('https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/rupee_foradian-webfont.eot?#iefix') format('embedded-opentype'), url('https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/rupee_foradian-webfont.woff') format('woff'), url('images/rupee_foradian-webfont.ttf') format('truetype'), url('https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/rupee_foradian-webfont.svg#RupeeForadianRegular') format('svg');
+ font-weight: normal;
+ font-style: normal;
+}
+span.RupeeForadianRegular{
+	font-family:'RupeeForadianRegular';
+	display:none !important;
+}
+#paypixy-icon{
+	cursor: pointer;
+    position: fixed;
+   *position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 2147483640;
+	width:34px !important;
+	background:none !important;
+	height:34px !important;
+	display:block;
+}
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	/*background: #131313;
+	opacity: .85;
+	filter: alpha(opacity=85);*/
+	z-index: 2147483645;
+}
+.modal-window {
+	position: fixed;
+	top: 42px !important;
+	left: 50%;
+	margin: 0 0 0 -168.5px !important;
+	padding: 17px 55px 59px;
+	z-index: 2147483646 !important;
+	height:485px !important;
+	overflow:hidden;
+	width:453px !important;
+	background: url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/iframe-bg.png") no-repeat scroll 0 0;
+}
+.modal-window iframe {
+	width:453px !important;
+}
+.pay_pixy_login_form #rct-authenticate-form{
+	margin-top: 0px !important;
+}
+a.close-window {
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/close-2.png") no-repeat 0 0;
+	color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+    height: 10px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+	text-indent:-9999px;
+	text-transform:capitalize;
+    right: 68px;
+    text-align: center;
+    text-decoration: none;
+    top: 403px;
+    width: 10px;
+}
+a.close-window span{
+	font:12px/21px Century Gothic, Arial, Helvetica, sans-serif;
+	display:block;
+	/*background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/blue_button_right.png") no-repeat right top;*/
+	padding:0px;
+	cursor:pointer;
+}
+a img{
+	border:0px;
+}
+#paypixy-toolbar p#login-prompt{
+	float: left;
+	color: #7f7d3e;
+	margin: 0px 8px 0px 0;
+	padding: 0px;
+	font: italic 14px/42px Century Gothic, Arial, Helvetica, sans-serif
+}
+#paypixy-toolbar .offer-text{
+	float:left;
+	color: #000000;
+	margin:0px 4px 0px 0px;
+	padding:10px 0px 0px;
+	font: 14px/20px Century Gothic, Arial, Helvetica, sans-serif
+	
+}
+#paypixy-toolbar label{
+	color: #ACA306;
+    font: 12px/37px Century Gothic, Arial, Helvetica, sans-serif;
+    padding:0px 8px 0px 0px;
+	width:auto;
+	float:left;
+}
+#paypixy-toolbar input#rct-authenticate {
+	background: url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/login.png") no-repeat scroll 0 0 transparent !important;
+    color: #ACA306 !important;
+    font: 0px/32px Tahoma,Geneva,sans-serif !important;
+    height: 32px !important;
+    padding: 0 !important;
+    text-align: center !important;
+    text-transform: capitalize;
+    width: 63px !important;
+	cursor:pointer;
+	border:0px;
+	float:left;
+	outline  : none;
+	margin:3px 0 0;
+}
+#paypixy-toolbar input[type="text"], #paypixy-toolbar input[type="password"]{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pay_pixy_input.png") no-repeat top left;
+	*background-image:none !important;
+	*background-color:#fff !important;
+	padding: 0 8px;
+    width: 121px !important;
+	height:30px;
+	*height:27px;
+	border:0px;
+	*border:solid 1px #f1e912 !important;
+	color: #a8a201;
+	margin:4px 0 0;
+	float:left;
+	font-family:Century Gothic, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	line-height:27px\9;
+	outline  : none;
+}
+#paypixy-toolbar input#term {
+	width:100px !important;
+}
+#paypixy-toolbar input.toolbar_submit{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/toolbar_search_button.gif") no-repeat;
+	width:27px;
+	text-indent:999999px;
+	height:30px;
+	float:left;
+	border:0px;
+	padding:0px;
+	margin:4px 0 0;
+	font-size:0px;
+	line-height:0px;
+	text-transform:capitalize;
+	top:0px !important;
+	position:relative !important;
+}
+#paypixy-toolbar{
+	height:40px;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/toolbar_mini.png") repeat-x top left !important;
+	width:545px;
+	position:fixed;
+	z-index:2147483648;
+	overflow:hidden;
+	top:0px;	
+	right:0px;
+	padding-bottom:8px;
+	text-transform: none !important;
+}
+#paypixy-toolbar.max{	
+	width:100%;	
+	/*background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/bg_toolbar.png") repeat-x top left !important;*/
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pixy-bar-bg.png") repeat-x top left !important;
+	padding-left:0px;
+	overflow:visible !important;
+}
+.minimized .offers_found_get, .minimized #paypixy_browsecategory, .minimized #showfbloginbtn{
+	display:none;
+}
+.max .offers_found_get, .max #paypixy_browsecategory, .max #showfbloginbtn{
+	display:block !important;
+}
+#paypixy-toolbar #pay_pixy_logo{
+	float:left;
+	width:34px;
+	height:34px;
+	padding:4px 5px 0 10px;
+}
+span.toolbar_close{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/close1.png") no-repeat 0 0;
+    font: 0px Arial,Helvetica,sans-serif;
+    height: 15px;
+    text-align: center;
+    text-decoration: none;
+    width: 15px;
+	float:right;
+	cursor:pointer;
+	margin:17px 8px 0 5px;
+}
+#paypixy-toolbar .toolbar_content{
+	height: 42px;
+    margin: 0 auto;
+    padding: 0px 0 0;
+    min-width: 1000px;
+	width:100%;
+	float:left;
+}
+.pay_pixy_login_form {
+	float:left;
+	width: 600px;
+}
+#paypixy-toolbar .offers_found {
+	float:left;
+	padding:1px 3px 1px 0px;
+	height:33px;
+	/*width: 360px;*/
+}
+#paypixy-toolbar .offers_found span.text{
+	float:left;
+	color: #2c2a00;
+	margin:0px 15px 0px 0px;
+}
+#paypixy-toolbar .toolbar_content .offers_found a{
+	text-decoration: none;
+	cursor:pointer;
+	color:#320DFE !important;
+	float:left;
+	padding:10px 0px 0px 0px;
+	/*background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/red_button_left.png") no-repeat 0 0;
+	margin:4px 0px 0px 0px;*/
+	font-weight:bold;
+}
+#paypixy-toolbar .toolbar_content .offers_found a span{
+	/*background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/red_button_right.png") no-repeat top right;
+	padding:6px 12px 0 0px;
+	height:29px;
+	display:block;*/
+	font:15px Century Gothic, Arial, Helvetica, sans-serif;
+}
+
+#paypixy-toolbar .offers_found_get {
+	float:left;
+	padding:3px 0px 0px 0px;
+}
+#paypixy-toolbar .offers_found_get span.text{
+	float:left;
+	color: #2c2a00;
+	margin:0px 15px 0px 0px;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a{	
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pixy-btn-left.png") no-repeat 0 0;
+	text-decoration:none;
+	margin:0px 0 0 0px;
+	padding:0px 0px 0px 12px;
+	height:38px;
+	float:left;
+	color:#333333;
+	white-space:normal;
+	font-weight:bold;
+	text-align:left;
+	position:relative;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a span{
+	display:block;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pixy-btn-rt.png") no-repeat top right;
+	padding:9px 25px 0 0px;
+	height:29px;
+	font:bold 14px/20px Century Gothic, Arial, sans-serif;
+	text-align:left !important;
+	text-shadow: 0px 1px 2px rgba(255,255,160,0.5);
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a#totalOffers_1 span{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pixy-btn-rt1.png") no-repeat top right !important;
+
+	padding:9px 12px 0 0px !important;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a#totalOffers_2.active .pixy-frmearrow{
+	display:block;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a#totalOffers_2 .pixy-frmearrow{
+	position:absolute;
+	top:39px;
+	left:98px;
+	display:none;
+	width:36px;
+	height:18px;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/iframe-arrow.png") no-repeat 0 0;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a:hover{
+	background-position: 0 -38px;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a:hover span, #paypixy-toolbar .toolbar_content .offers_found_get a#totalOffers_1:hover span{
+	background-position: right -38px !important;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a.active{
+	background-position: left -76px;
+	color:#888888;
+}
+#paypixy-toolbar .toolbar_content .offers_found_get a.active span{
+	background-position: right -76px !important;
+}
+
+
+
+
+#paypixy-toolbar #pay_pixy_history{
+	float:left;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_left.png") no-repeat 0 0;
+	text-decoration:none;
+	margin:6px 0 0;
+	padding:0px 0px 0px 12px;
+}
+#paypixy-toolbar #pay_pixy_history span{
+	display:block;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_right.png") no-repeat top right;
+	padding:6px 20px 0 8px;
+	height:29px;
+	color:#c0b902;
+	font:12px/20px Century Gothic, Arial, Helvetica, sans-serif;
+}
+#paypixy-toolbar #pay_pixy_mycash{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/cash-bag.png") no-repeat 0 0;
+	color: #579D04;
+    float: right;
+    font: bold 12px/20px Century Gothic, Arial,Helvetica,sans-serif;
+    height: 28px;
+    margin: 0 5px 0 20px;
+    padding: 15px 10px 0 27px;
+	display:none;
+    text-decoration: none;
+}
+#paypixy-toolbar #pay_pixy_mycash span{
+	display:block;
+	/*background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_right.png") no-repeat top right;*/
+	padding:6px 10px 0;
+	height:29px;
+	color:#579d04;
+	font:bold 12px/20px Century Gothic, Arial, Helvetica, sans-serif;
+}
+#paypixy-toolbar ul#paypixy_browsecategory{
+	float:left;
+	margin:3px 0 0 0px;
+	padding:0px;
+	list-style:none;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li {
+	padding:0px;
+	margin:0px;
+	float:left;
+	position:relative;
+	clear:left;
+	border:0px !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pixy-btn-left.png") no-repeat 0 0;
+	text-decoration:none;
+	margin:0px 0 0 0px;
+	padding:0px 0px 0px 12px;
+	height:38px;
+	float:left;
+	color:#333333;
+	white-space:normal;
+	font-weight:bold;
+	width:82px;
+	text-align:left;
+}
+/*#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat span em{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/arrow.png") no-repeat 0 0;
+    height: 7px;
+    margin: 7px 8px 0;
+    width: 7px;
+	display:inline-block;
+	text-align:left;
+}*/
+#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat span{
+	display:block;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/pixy-btn-rt.png") no-repeat top right;
+	padding:9px 16px 0 0px;
+	height:29px;
+	font:bold 14px/20px Century Gothic, Arial, sans-serif;
+	text-align:left !important;
+	text-shadow: 0px 1px 2px rgba(255,255,160,0.5);
+}
+#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat:hover, #paypixy-toolbar ul#paypixy_browsecategory li:hover a.paypixy_browse_cat{
+	background-position: 0 -76px;
+	color:#888888;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat:hover span, #paypixy-toolbar ul#paypixy_browsecategory li:hover a.paypixy_browse_cat span{
+	background-position: right -76px;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat.avtive, #paypixy-toolbar ul#paypixy_browsecategory li:hover a.paypixy_browse_cat.active{
+	background-position: left -76px;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li a.paypixy_browse_cat.active span, #paypixy-toolbar ul#paypixy_browsecategory li:hover a.paypixy_browse_cat.active span{
+	background-position: right -76px;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li div.pixy-levelDiv {
+	position:absolute;
+	top:34px;
+	left:4px;	
+	display:none;
+}
+.temphide{
+	display:none !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li:hover div.pixy-levelDiv {
+	display:block;
+	z-index:99999999;
+	float:left;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul {
+	padding:0px 0;
+	list-style:none;
+	width:213px;
+	border:solid 1px #acacac;
+	background:#fff;
+	margin:0px;
+	float:left;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li{
+	height:auto !important;
+	float:left;
+	margin:0px;
+	padding:0px;
+	position:relative !important;
+	width:213px;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li a{
+	text-decoration:none;
+	padding:0px 0px 0px 0px;
+	display:block;
+	color:#000000;
+	font-weight:bold;
+	float:left;
+	width:213px;
+	text-align:left !important;
+	background:#eeeeee;
+	border-top: solid 1px #bbbbbb;
+	position:relative;
+	z-index:9999999;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li:first-child a {
+	border-top: 0px;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li a span{
+	font:12px/16px Century Gothic, Arial, Helvetica, sans-serif;
+	display:block;
+	padding:7px 15px;
+	display:block;
+	white-space:nowrap;
+	cursor:pointer;
+	text-align:left;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li:hover ul li div.pixy-level2{
+	display:none;
+	top:0px;
+	position:absolute;
+	float:left;
+	left:213px;
+	z-index:9999998;
+	background:#fff;
+	border:solid 1px #acacac;
+	border-color:#acacac;
+	border-style: solid;
+	border-width:1px 1px 1px 1px;
+	float:left;
+	width:235px !important;
+	background:/*url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/dropdown.gif") repeat-y 0 0 */#fff;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li:hover ul li div.pixy-loop-2{
+	width:470px !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li:hover ul li div.pixy-loop-3{
+	width:705px !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li:hover ul li:hover div.pixy-level2{
+	display:block;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li:hover ul li div.pixy-level2 ul{
+	float:left;
+	width:213px;
+	border:0px !important;
+	background:none !important;
+	height:100%;
+	padding:0px !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory h4{
+	color:#000000;
+	font:bold 14px Century Gothic, Arial, Helvetica, sans-serif;
+	margin:0px;
+	padding:10px 0 4px 15px;
+	white-space:nowrap;
+	text-align:left !important;
+	width:100%;	
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li a:hover, #paypixy-toolbar ul#paypixy_browsecategory li ul li:hover a {
+	color:#000000 !important;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/horizontal_arrow.gif") no-repeat right center #fff;
+	width:214px !important;
+}
+/*#paypixy-toolbar ul#paypixy_browsecategory li ul li:first-child a{
+	background:none !important;
+}*/
+#paypixy-toolbar ul#paypixy_browsecategory li ul li li a:hover, #paypixy-toolbar ul#paypixy_browsecategory li ul li li:hover a, #paypixy-toolbar ul#paypixy_browsecategory li ul li li a {
+	background:none !important;
+	border-top:0px !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li li a span {
+	color:#aaaaaa !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li li a:hover span {
+	color:#000000 !important;
+}
+/*#paypixy-toolbar a.pay_pixy_logout{
+	float:right;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_left.png") no-repeat 0 0;
+	text-decoration:none;
+	margin:6px 0 0 15px;
+	padding:0px 0px 0px 12px;
+}
+#paypixy-toolbar a.pay_pixy_logout span{
+	display:block;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_right.png") no-repeat top right;
+	padding:6px 15px 0 3px;
+	height:26px;
+	color:#ff6699;
+	font:12px/20px Century Gothic, Arial, Helvetica, sans-serif;
+}*/
+#pay_pixy_tetx_logo {
+	float:right;
+	width:71px;
+	height:22px;
+	padding:13px 0 0 15px;
+}
+#paypixy-toolbar .toolbar_content .find_offer {
+	float:left;
+	height:32px;
+	padding:3px 7px 0 0;
+	margin:0px 0px 0 3px;
+	display:none;
+}
+#paypixy-toolbar div.left{
+	float:left;
+	height:32px;
+	padding:3px 5px 0 0;
+	margin:0px 0px 0 0px;
+}
+#paypixy-toolbar .toolbar_content .mycash, .toolbar_content .history{
+	color: #ACA306;
+    font: 12px/30px Tahoma, Geneva, sans-serif;
+    padding: 3px 0 0;
+	width:auto;
+}
+#paypixy-toolbar .toolbar_content .find_offer input{
+}
+#paypixy-toolbar .toolbar_content .history{
+	float:left;
+}
+#paypixy-toolbar .toolbar_content .mycash {
+	float:right;
+}
+#paypixy-toolbar .toolbar_content .mycash span.text, #paypixy-toolbar .toolbar_content .history span.text{
+	float:left;
+	color: #ACA306;
+    font: 12px/30px Tahoma, Geneva, sans-serif;
+}
+#paypixy-toolbar .toolbar_content .mycash a, #paypixy-toolbar .toolbar_content .history a{
+	text-decoration:none;
+	cursor:pointer;
+	color:#aca306;
+	float:left;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/toolbar_button_left.gif") no-repeat 0 0;
+	padding:0px 0px 0px 20px;
+	margin:0px 0px 0px 5px;
+}
+#paypixy-toolbar .toolbar_content .mycash a span, #paypixy-toolbar .toolbar_content .history a span{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/toolbar_button_right.gif") no-repeat top right;
+	padding:0px 20px 0 0px;
+	height:30px;
+	display:block;
+}
+#toolbar_popup #my_cash{
+	float:left;
+	width:100%;
+}
+#toolbar_popup #my_cash .heading {
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/bg_heading.gif") repeat-x 0 0;
+	height:64px;
+	margin:0px;
+	padding:0px;
+}
+#toolbar_popup #my_cash h2{
+	margin:0px;
+	padding:0 0 0 18px;
+	font:24px Century Gothic, Arial, Helvetica, sans-serif;
+	color:#000000;
+	float:left;
+}
+#toolbar_popup #my_cash span.next_payment {
+	float:left;
+	padding:0px 0px 0px 40px;
+	font:18px Century Gothic, Arial, Helvetica, sans-serif;
+	color:#b86801;
+}
+#toolbar_popup #my_cash ul {
+	float:left;
+	width:100%;
+	margin:0px;
+	padding:0px;
+}
+#toolbar_popup #my_cash ul li{
+	float:left;
+	clear:left;
+	padding:8px 18px;
+	margin:0px;
+	font:16px Century Gothic, Arial, Helvetica, sans-serif;
+	color:#787878;
+}
+a.Forgot_Password{
+	float:left;
+	color:#005dff;
+	font:12px/42px Century Gothic, Arial, Helvetica, sans-serif;
+	text-decoration:underline;
+	margin:0px 8px 0px 30px;
+}
+a.Forgot_Password:hover{
+	color:#001740;
+	text-decoration:none;
+}
+
+
+
+#paypixy-toolbar ul#paypixy_settings{
+	float:right;
+	margin:0px 5px;
+	padding:0px;
+	list-style:none;
+	width:66px;
+}
+#paypixy-toolbar ul#paypixy_settings li {
+	padding:0px;
+	margin:0px;
+	float:right;
+	position:relative;
+	height:43px;
+	border:0px !important;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/transperent_normal.png") no-repeat scroll 0 0 transparent;
+	color: #FF6699;
+    float: left;
+    margin: 1px 0px 0;
+    padding: 0 0 0 3px;
+    text-decoration: none;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings span em{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/black_arrow.png") no-repeat 0 0;
+	float: right;
+    height: 7px;
+    margin: 19px 8px 0 0;
+    width: 7px;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings span{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/transperent_normal.png") no-repeat scroll right top transparent;
+	display:block;
+	padding:0px 3px 0 0px;
+	height:42px;
+	font:0px Century Gothic, Arial, Helvetica, sans-serif;
+	text-transform:capitalize;
+	line-height:0px;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings span strong{
+	float:left;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/settings.png") no-repeat center center;
+	width:29px;
+	height:30px;
+	margin:6px 0px 0px;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings:hover, #paypixy-toolbar ul#paypixy_settings li:hover a.pay_pixy_settings {
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/transperent_normal.png") no-repeat scroll left bottom transparent;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings:hover span, #paypixy-toolbar ul#paypixy_settings li:hover a.pay_pixy_settings span{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/transperent_normal.png") no-repeat scroll right bottom transparent;
+}
+#paypixy-toolbar ul#paypixy_settings li ul {
+	position:absolute;
+	top:42px;
+	right:0px;
+	display:none;
+	list-style:none;
+	width:140px;
+	background:#fff;
+    border: 1px solid #ACACAC;
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    padding: 7px 0;
+}
+#paypixy-toolbar ul#paypixy_settings li:hover ul {
+	display:block;
+	z-index:99999999;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li{
+	border-top:solid 1px #f1e912;
+	height:auto !important;
+	float:left;
+	clear:left;
+	width:100%;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li:first-child{
+	border-top:solid 1px #f1e912;
+	height:auto !important;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a{
+	text-decoration:none;
+	padding:0px 0px 0px 0px;
+	float:left;
+	width:140px;
+	color:#bbbbbb;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a span{
+	font:12px/16px Century Gothic, Arial, Helvetica, sans-serif;
+	text-align:left;
+	display:block;
+	padding:7px 15px 7px 15px;
+	display:block;
+	white-space:nowrap;
+	cursor:pointer;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a:hover {
+	color:#000000 !important;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a:hover span {
+}
+
+
+/*#paypixy-toolbar ul#paypixy_settings{
+	float:right;
+	margin:0px;
+	padding:0px;
+	list-style:none;
+}
+#paypixy-toolbar ul#paypixy_settings li {
+	padding:0px;
+	margin:0px;
+	float:left;
+	position:relative;
+	height:43px;
+	border:0px !important;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings{
+	color: #FF6699;
+    float: left;
+    margin: 1px 5px 0;
+    padding: 0 0 0 8px;
+    text-decoration: none;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings span em{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/black_arrow.png") no-repeat 0 0;
+	float: right;
+    height: 7px;
+    margin: 19px 8px 0;
+    width: 7px;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings span{
+	display:block;
+	padding:0px 3px 0 3px;
+	height:44px;
+	font:0px Century Gothic, Arial, Helvetica, sans-serif;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings span strong{
+	float:left;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/settings.png") no-repeat top right;
+	width:29px;
+	height:30px;
+	margin:6px 0px 0px;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings:hover, #paypixy-toolbar ul#paypixy_settings li:hover a.pay_pixy_settings {
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/browse_cat_hover_left.gif") no-repeat 0 0;
+}
+#paypixy-toolbar ul#paypixy_settings li a.pay_pixy_settings:hover span, #paypixy-toolbar ul#paypixy_settings li:hover a.pay_pixy_settings span{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/browse_cat_hover_right.gif") no-repeat top right;
+}
+#paypixy-toolbar ul#paypixy_settings li ul {
+	position:absolute;
+	top:42px;
+	right:0px;
+	display:none;
+	border:solid 1px #f1e912;
+	list-style:none;
+	width:120px;
+	background:#fff833;
+}
+#paypixy-toolbar ul#paypixy_settings li:hover ul {
+	display:block;
+	z-index:99999999;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li{
+	border-top:solid 1px #f1e912;
+	height:auto !important;
+	float:left;
+	clear:left;
+	width:100%;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li:first-child{
+	border-top:solid 1px #f1e912;
+	height:auto !important;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a{
+	background:#fff833;
+	text-decoration:none;
+	padding:0px 0px 0px 10px;
+	float:right;
+	width:110px;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a span{
+	font:12px/16px Century Gothic, Arial, Helvetica, sans-serif;
+	text-align:right;
+	color:#a8a201;
+	display:block;
+	height:27px;
+	padding:13px 15px 0 0;
+	display:block;
+	white-space:nowrap;
+	cursor:pointer;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a:hover {
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/browse_cat_hover_left.gif") no-repeat 0 0;
+}
+#paypixy-toolbar ul#paypixy_settings li ul li a:hover span {
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/browse_cat_hover_right.gif") no-repeat top right;
+}*/
+
+
+/* Brag Facebook */
+
+#paypixy-toolbar ul#paypixy_brag_fb{
+	float:right;
+	margin:0px 0 0 12px;
+	padding:0px;
+	list-style:none;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li {
+	padding:0px;
+	margin:0px;
+	float:left;
+	position:relative;
+	border:0px !important;
+}
+#paypixy-toolbar a.paypixy_brag{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_left.png") no-repeat 0 0;
+	color: #FF6699;
+    float: right;
+    font-weight: bold;
+    margin: 6px 0 0 11px;
+    padding: 0 0 0 12px;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    width: 80px;
+	white-space:nowrap;
+}
+#paypixy-toolbar a.paypixy_brag span{
+	display:block;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/yellow_button_right.png") no-repeat top right;
+	padding:0px 15px 0 3px;
+	height:32px;
+	font:12px/32px Century Gothic, Arial, Helvetica, sans-serif;
+}
+#paypixy-toolbar a.paypixy_brag:hover{
+	/*background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/transperent_normal.png") no-repeat bottom left;
+}
+#paypixy-toolbar a.paypixy_brag:hover span{
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/transperent_normal.png") no-repeat bottom right;*/
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul {
+	position:absolute;
+	top:42px;
+	left:0px;
+	padding:8px 12px;
+	display:none;
+	list-style:none;
+	width:244px;
+	border:solid 1px #acacac;
+	background:#fff;
+	margin:0px;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li:hover ul {
+	display:block;
+	z-index:99999999;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul li{
+	height:auto !important;
+	float:left;
+	clear:left;
+	width:244px;
+	margin:0px;
+	padding:0px;
+	position:static !important;
+	padding:10px 0;
+	border-top:solid 1px #ccc;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul li:first-child {
+	border-top:0px;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul li.paypixy_brag{
+	font:italic 12px/16px Century Gothic, Arial, Helvetica, sans-serif;
+	color:#acacac;
+	padding-bottom:5px;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul li span{
+	color:#ec6391;
+	display:block;
+	font:13px/16px Century Gothic, Arial, Helvetica, sans-serif;
+	padding:0px 0px 6px;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul li a{
+	text-decoration:none;
+	padding:0px 0px 0px 0px;
+	width:244px;
+	text-align:center;
+	display:block;
+	color:#fff;
+	font:15px/37px Century Gothic, Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	background:url("https://s3-ap-southeast-1.amazonaws.com/media.paypixy.com/toolbar/images/facebook_brag.png") no-repeat 0 0;
+}
+#paypixy-toolbar ul#paypixy_brag_fb li ul li a:hover, #paypixy-toolbar ul#paypixy_browsecategory li ul li:hover a {
+	color:#ff6699;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li li a:hover, #paypixy-toolbar ul#paypixy_browsecategory li ul li li:hover a, #paypixy-toolbar ul#paypixy_browsecategory li ul li li a {
+	background:none !important;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li li a span {
+	color:#676767;
+}
+#paypixy-toolbar ul#paypixy_browsecategory li ul li li a:hover span {
+	color:#ff6699;
+}
+
+
+
+
+/* My Cash */
+
+@media print {
+	#paypixy-icon{
+		display:none;
+	}
+}

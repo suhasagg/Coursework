@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event Studies « CTRL 68</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://ctrl68.wordpress.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://s0.wp.com/wp-content/themes/pub/widely/js/html5.js?m=1355090589g" type="text/javascript"></script>
+<![endif]-->
+
+<meta name="google-site-verification" content="ioAq624mXcWVyqwPGuU46heM1l27PnjovjKjY6x9eMM">
+<link rel="alternate" type="application/rss+xml" title="CTRL 68 » Feed" href="http://ctrl68.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="CTRL 68 » Comments Feed" href="http://ctrl68.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="CTRL 68 » basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies Comments Feed" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/feed/">
+<script type="text/javascript" async="" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/quant.js"></script><script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/a.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/a_003.js"></script>
+<link rel="stylesheet" id="all-css-0" href="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://ctrl68.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://ctrl68.wordpress.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Python Finance Package v0.02 – Basic Utils and Market&nbsp;Simulator" href="http://ctrl68.wordpress.com/2012/12/17/python-finance-package-v0-02-basic-utils-and-market-simulator/">
+<link rel="next" title="basic Python Finance Package v0.035 – Event study and market simulator Integration +&nbsp;Example" href="http://ctrl68.wordpress.com/2012/12/28/basic-python-finance-package-v0-035-event-study-and-market-simulator-integration-example/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/">
+<link rel="shortlink" href="http://wp.me/p2OA0n-2a">
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fctrl68.wordpress.com%2F2012%2F12%2F26%2Fbasic-python-finance-package-v0-03-date-utils-lists-utils-event-studies%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fctrl68.wordpress.com%2F2012%2F12%2F26%2Fbasic-python-finance-package-v0-03-date-utils-lists-utils-event-studies%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event Studies">
+<meta property="og:url" content="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/">
+<meta property="og:description" content="Continuing with the basic Python Finance Package. This update took longer because I change my setup to Linux (elementaryos), also things are getting complicated/interesting as my finance&nbsp;knowledge&nbsp;...">
+<meta property="og:site_name" content="CTRL 68">
+<meta property="og:image" content="http://i0.wp.com/ctrl68.files.wordpress.com/2012/12/expected_return.png?fit=1000%2C1000">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="http://i0.wp.com/ctrl68.files.wordpress.com/2012/12/expected_return.png">
+<meta name="twitter:card" content="photo">
+<meta property="fb:app_id" content="249643311490">
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976023g" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311976023g" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1355642671g">
+<link rel="openid.server" href="http://ctrl68.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://ctrl68.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://ctrl68.wordpress.com/osd.xml" title="CTRL 68">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style>
+		/* <![CDATA[ */
+		/* Block: reblog */
+		
+		.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+		.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+		.reblogger-note-content            { margin: 0 0 20px; }
+		.reblog-post .wpcom-enhanced-excerpt-content { border-left: 3px solid #eee; padding-left: 15px; }
+		.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+		.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+		.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+		.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+		
+		.reblog-post .wpcom-enhanced-excerpt { clear: both; }
+		
+		.reblog-post .wpcom-enhanced-excerpt address,
+		.reblog-post .wpcom-enhanced-excerpt li,
+		.reblog-post .wpcom-enhanced-excerpt h1,
+		.reblog-post .wpcom-enhanced-excerpt h2,
+		.reblog-post .wpcom-enhanced-excerpt h3,
+		.reblog-post .wpcom-enhanced-excerpt h4,
+		.reblog-post .wpcom-enhanced-excerpt h5,
+		.reblog-post .wpcom-enhanced-excerpt h6,
+		.reblog-post .wpcom-enhanced-excerpt p { font-size: 100% !important; }
+		
+		.reblog-post .wpcom-enhanced-excerpt blockquote,
+		.reblog-post .wpcom-enhanced-excerpt pre,
+		.reblog-post .wpcom-enhanced-excerpt code,
+		.reblog-post .wpcom-enhanced-excerpt q { font-size: 98% !important; }
+		
+
+		/* ]]> */
+		</style>
+		<meta name="application-name" content="CTRL 68"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="python, tech, data analysis, finance"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://ctrl68.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies | CTRL 68 on WordPress.com">
+<meta name="description" content="python, tech, data analysis, finance (by Daniel Rodriguez)">
+<link href="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/shCore.css" type="text/css" rel="stylesheet"><link href="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/shThemeDefault.css" type="text/css" rel="stylesheet"><style id="syntaxhighlighteranchor"></style>
+<script src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/rate.php" charset="utf-8"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/services.css"><style id="pd_popup_holder_style_6267470_post_134" type="text/css">#pd_popup_holder_6267470_post_134 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style></head>
+
+<body class="single single-post postid-134 single-format-standard sidebars-two highlander-enabled highlander-light">
+<div id="page" class="hfeed site clearfix">
+	<header id="masthead" class="site-header clearfix" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="http://ctrl68.wordpress.com/" title="CTRL 68" rel="home">CTRL 68</a></h1>
+			<h2 class="site-description">python, tech, data analysis, finance</h2>
+		</hgroup>
+
+		<nav role="navigation" class="site-navigation main-navigation">
+			<h1 class="assistive-text">Menu</h1>
+			<div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+
+			<div class="menu-navbar-container"><ul id="menu-navbar" class="menu"><li id="menu-item-60" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-60"><a href="http://ctrl68.wordpress.com/about/">About</a></li>
+<li id="menu-item-61" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-61"><a href="https://twitter.com/danielfrg">on Twitter</a></li>
+<li id="menu-item-83" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a href="https://github.com/dfrodriguez143">on Github</a></li>
+</ul></div>		</nav><!-- .site-navigation .main-navigation -->
+
+		
+	</header><!-- #masthead .site-header -->
+
+	<div id="main" class="site-main">
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content" role="main">
+
+			
+				
+<article id="post-134" class="post-134 post type-post status-publish format-standard hentry category-python category-pythonfinance tag-coursera tag-finance tag-pandas tag-python clearfix">
+	<header class="entry-header">
+		<h1 class="entry-title"><a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/" title="Permalink to basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies" rel="bookmark">basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies</a></h1>	</header><!-- .entry-header -->
+
+	<footer class="entry-meta">
+		<span class="author vcard"><a class="url fn n" href="http://ctrl68.wordpress.com/author/dfrodriguez143/" title="View all posts by Daniel Rodriguez" rel="author"><i class="genericon"></i>Daniel Rodriguez</a></span><a class="pubdate" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/" title="9:48 PM" rel="bookmark"><i class="genericon"></i><time class="entry-date" datetime="2012-12-26T21:48:16+00:00" pubdate="">December 26, 2012</time></a><a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/#comments" class="post-comments" title="Comment on basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies"><span class="comments-link"><i class="genericon"></i>4</span></a>	</footer><!-- .entry-meta -->
+
+		<div class="entry-content">
+				<div class="featured-image">
+			<a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/" rel="bookmark" title="Permalink to basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies">
+				<img src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/expected_return.png" class="attachment-post-thumbnail wp-post-image" alt="Event Study Expected Return" height="330" width="800">			</a>
+		</div>
+				<p>Continuing with the <a title="basic Python Finance Packagage" href="http://ctrl68.wordpress.com/category/python/pythonfinance/"><span style="text-decoration:underline;">basic</span> Python Finance Package</a>. This update took longer because I change my setup to Linux (<a title="elemenaryos" href="http://elementaryos.org/">elementaryos</a>),
+ also things are getting complicated/interesting as my 
+finance&nbsp;knowledge&nbsp;is mostly null, so I 
+am&nbsp;learning&nbsp;as I develop the package, that was part of the 
+plan so no&nbsp;complains&nbsp;about that..</p>
+<p>The objective was to solve the Computational Investing Homework 
+4.&nbsp;Using the current code on the package (EventFinder + 
+MarketSimulator) is possible to solve the homework, but I will cover 
+that on a later post.</p>
+<p><span id="more-134"></span></p>
+<h2>Changes since last time</h2>
+<ol>
+<li>Bug fixes on File Manager and Data Access</li>
+<li>Improved&nbsp;tests</li>
+<li>Added Date Utils and List Utils to manage the open dates from NYSE</li>
+<li>Added Event Studies
+<ol>
+<li>(Single) Past Event</li>
+<li>Event Finder</li>
+<li>Multiple Events</li>
+</ol>
+</li>
+</ol>
+<h2>Date Utils</h2>
+<ol>
+<li>Returns the dates the market was open between two dates.</li>
+<li>Looks for the closer date on a list of dates and returns the index of that date on the list</li>
+</ol>
+<div><div id="highlighter_976931" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">def</code> <code class="python plain">nyse_dates(start</code><code class="python keyword">=</code><code class="python plain">datetime(</code><code class="python value">2000</code><code class="python plain">,</code><code class="python value">1</code><code class="python plain">,</code><code class="python value">1</code><code class="python plain">), end</code><code class="python keyword">=</code><code class="python plain">datetime.today(),</code></div><div class="line number2 index1 alt1"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">insideSearch</code><code class="python keyword">=</code><code class="python color1">True</code><code class="python plain">, </code><code class="python functions">list</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">,</code></div><div class="line number3 index2 alt2"><code class="python spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="python plain">lookbackDays</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">, lookforwardDays</code><code class="python keyword">=</code><code class="python value">0</code><code class="python plain">)</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="python keyword">def</code> <code class="python plain">search_closer_date(date, dates, exact</code><code class="python keyword">=</code><code class="python color1">False</code><code class="python plain">, searchBack</code><code class="python keyword">=</code><code class="python color1">True</code><code class="python plain">, maxDistance</code><code class="python keyword">=</code><code class="python value">10</code><code class="python plain">)</code></div></div></td></tr></tbody></table></div></div>
+<p>Example:</p>
+<div><div id="highlighter_284584" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">from</code> <code class="python plain">datetime </code><code class="python keyword">import</code> <code class="python plain">datetime</code></div><div class="line number2 index1 alt1"><code class="python keyword">from</code> <code class="python plain">finance.utils </code><code class="python keyword">import</code> <code class="python plain">DateUtils</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="python plain">all_dates </code><code class="python keyword">=</code> <code class="python plain">DateUtils.nyse_dates(</code><code class="python functions">list</code><code class="python keyword">=</code><code class="python color1">True</code><code class="python plain">)</code></div><div class="line number5 index4 alt2"><code class="python functions">print</code><code class="python plain">(all_dates)</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="python functions">print</code><code class="python plain">(DateUtils.nyse_dates(start</code><code class="python keyword">=</code><code class="python plain">datetime(</code><code class="python value">2008</code><code class="python plain">,</code><code class="python value">1</code><code class="python plain">,</code><code class="python value">1</code><code class="python plain">)))</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="python plain">index </code><code class="python keyword">=</code> <code class="python plain">DateUtils.search_closer_date(datetime(</code><code class="python value">2009</code><code class="python plain">,</code><code class="python value">1</code><code class="python plain">,</code><code class="python value">1</code><code class="python plain">), all_dates)</code></div><div class="line number10 index9 alt1"><code class="python functions">print</code><code class="python plain">(index, all_dates[index])</code></div></div></td></tr></tbody></table></div></div>
+<p>Output:</p>
+<pre>[datetime.datetime(2000, 1, 3, 0, 0), 
+datetime.datetime(2000, 1, 4, 0, 0), 
+datetime.datetime(2000, 1, 5, 0, 0), 
+ ... 
+datetime.datetime(2012, 12, 21, 0, 0), 
+datetime.datetime(2012, 12, 24, 0, 0), 
+datetime.datetime(2012, 12, 26, 0, 0)]
+# Note: Length: 3268
+
+2008-01-02    2008-01-02 00:00:00
+2008-01-03    2008-01-03 00:00:00
+2008-01-04    2008-01-04 00:00:00
+2008-01-07    2008-01-07 00:00:00
+   ...
+2012-12-20    2012-12-20 00:00:00
+2012-12-21    2012-12-21 00:00:00
+2012-12-24    2012-12-24 00:00:00
+2012-12-26    2012-12-26 00:00:00
+Length: 1258
+
+2262 2008-12-31 00:00:00
+# Note 2009-1-1 was not open, closer date looking back is 2008-12-31</pre>
+<h2>List Utils</h2>
+<ol>
+<li>Date Utils extends the List Utils of dates which only returns all the NYSE dates</li>
+<li>List Utils also provides the symbols from S&amp;P500 each year</li>
+</ol>
+<p>Example:</p>
+<div><div id="highlighter_815136" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">from</code> <code class="python plain">finance.utils </code><code class="python keyword">import</code> <code class="python plain">ListUtils</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="python plain">sp500_2012 </code><code class="python keyword">=</code> <code class="python plain">ListUtils.SP500(year</code><code class="python keyword">=</code><code class="python value">2012</code><code class="python plain">)</code></div><div class="line number4 index3 alt1"><code class="python functions">print</code><code class="python plain">(</code><code class="python functions">len</code><code class="python plain">(sp500_2012), sp500_2012)</code></div></div></td></tr></tbody></table></div></div>
+<p>Output:</p>
+<pre>501 ['A', 'AA', 'AAPL', ... ,'YUM', 'ZION', 'ZMH']</pre>
+<h2>Simple Past Event</h2>
+<p>Input: date of interest, equity to analyze, market symbol to compare,
+ event window length (back and forward) and estimation period length.</p>
+<p>Output: The program downloads the necessary information and analyse 
+the event: expected return, abnormal return, cumulative abnormal return,
+ t-test.</p>
+<p>Example (same from: <a title="AAPL Event Study" href="http://www.youtube.com/watch?v=FRNabkJ48vs">http://www.youtube.com/watch?v=FRNabkJ48vs</a>):</p>
+<div><div id="highlighter_268747" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">from</code> <code class="python plain">datetime </code><code class="python keyword">import</code> <code class="python plain">datetime</code></div><div class="line number2 index1 alt1"><code class="python keyword">from</code> <code class="python plain">finance.evtstudy </code><code class="python keyword">import</code> <code class="python plain">PastEvent</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="python plain">pevt </code><code class="python keyword">=</code> <code class="python plain">PastEvent(</code><code class="python string">'./data'</code><code class="python plain">)</code></div><div class="line number5 index4 alt2"><code class="python plain">pevt.symbol </code><code class="python keyword">=</code> <code class="python string">'AAPL'</code></div><div class="line number6 index5 alt1"><code class="python plain">pevt.market </code><code class="python keyword">=</code> <code class="python string">"^gspc"</code></div><div class="line number7 index6 alt2"><code class="python plain">pevt.lookback_days </code><code class="python keyword">=</code> <code class="python value">10</code></div><div class="line number8 index7 alt1"><code class="python plain">pevt.lookforward_days </code><code class="python keyword">=</code> <code class="python value">10</code></div><div class="line number9 index8 alt2"><code class="python plain">pevt.estimation_period </code><code class="python keyword">=</code> <code class="python value">252</code></div><div class="line number10 index9 alt1"><code class="python plain">pevt.date </code><code class="python keyword">=</code> <code class="python plain">datetime(</code><code class="python value">2009</code><code class="python plain">, </code><code class="python value">1</code><code class="python plain">, </code><code class="python value">5</code><code class="python plain">)</code></div><div class="line number11 index10 alt2"><code class="python plain">pevt.run()</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="python comments">#print(pevt.expected_return)</code></div><div class="line number14 index13 alt1"><code class="python comments">#print(pevt.abnormal_return)</code></div><div class="line number15 index14 alt2"><code class="python functions">print</code><code class="python plain">(pevt.cumulative_abnormal_return)</code></div><div class="line number16 index15 alt1"><code class="python comments">#print(pevt.t_test)</code></div><div class="line number17 index16 alt2">&nbsp;</div><div class="line number18 index17 alt1"><code class="python keyword">import</code> <code class="python plain">matplotlib</code></div><div class="line number19 index18 alt2"><code class="python plain">matplotlib.use(</code><code class="python string">'Qt4Agg'</code><code class="python plain">) </code><code class="python comments"># Probably most people dont need this line</code></div><div class="line number20 index19 alt1"><code class="python keyword">import</code> <code class="python plain">matplotlib.pyplot as plt</code></div><div class="line number21 index20 alt2"><code class="python plain">pevt.expected_return.plot()</code></div><div class="line number22 index21 alt1"><code class="python plain">plt.show()</code></div></div></td></tr></tbody></table></div></div>
+<p>Output:</p>
+<pre>Date
+2008-12-18 0.024165
+2008-12-19 0.028294
+2008-12-22 -0.000580
+2008-12-23 0.016884
+...
+2009-01-14 0.038178
+2009-01-15 0.014626
+2009-01-16 -0.004774
+2009-01-20 -0.002890
+Name: Cumulative Abnormal Return
+# NOTE: Length: 21</pre>
+<div id="attachment_143" class="wp-caption aligncenter" style="width: 650px"><a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/expected_return/" rel="attachment wp-att-143"><img class="size-large wp-image-143" alt="Event Study Expected Return" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/expected_return_002.png" height="480" width="640"></a><p class="wp-caption-text">Event Study Expected Return</p></div>
+<h2>Event Finder</h2>
+<p>Input: List of equities, date range to search for events, 
+event_function [defaults: went_blow(amount), went_above(amount), 
+increase(amount), decrease(amount)]</p>
+<p>Output: Looks each equity on each date and creates an event matrix</p>
+<p>Optional/Defaults:</p>
+<ol>
+<li>Loads/saves a cache (pickle) version of the data.</li>
+<li>By default only takes the first event on each equity</li>
+</ol>
+<p>Example:</p>
+<div><div id="highlighter_175757" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python plain">evtf </code><code class="python keyword">=</code> <code class="python plain">EventFinder(</code><code class="python string">'./data'</code><code class="python plain">)</code></div><div class="line number2 index1 alt1"><code class="python plain">evtf.symbols </code><code class="python keyword">=</code> <code class="python plain">[</code><code class="python string">'AMD'</code><code class="python plain">, </code><code class="python string">'CBG'</code><code class="python plain">]</code></div><div class="line number3 index2 alt2"><code class="python plain">evtf.start_date </code><code class="python keyword">=</code> <code class="python plain">datetime(</code><code class="python value">2008</code><code class="python plain">, </code><code class="python value">1</code><code class="python plain">, </code><code class="python value">1</code><code class="python plain">)</code></div><div class="line number4 index3 alt1"><code class="python plain">evtf.end_date </code><code class="python keyword">=</code> <code class="python plain">datetime(</code><code class="python value">2010</code><code class="python plain">, </code><code class="python value">12</code><code class="python plain">, </code><code class="python value">31</code><code class="python plain">)</code></div><div class="line number5 index4 alt2"><code class="python plain">evtf.function </code><code class="python keyword">=</code> <code class="python plain">evtf.went_below(</code><code class="python value">3</code><code class="python plain">)</code></div><div class="line number6 index5 alt1"><code class="python plain">evtf.search()</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="python functions">print</code><code class="python plain">(evtf.num_events)</code></div><div class="line number9 index8 alt2"><code class="python functions">print</code><code class="python plain">(evtf.matrix)</code></div></div></td></tr></tbody></table></div></div>
+<p>Output:</p>
+<pre>2
+
+            AMD  CBG
+Date                
+2008-10-27    1  NaN
+2009-02-27  NaN    1</pre>
+<h2>Multiple Events</h2>
+<p>Input: Uses the matrix created on the Event Finder and analyse each event</p>
+<p>Output:</p>
+<ol>
+<li>For each event
+<ol>
+<li>Expected return</li>
+<li>Abnormal return</li>
+<li>Cumulative abnormal&nbsp;return</li>
+</ol>
+</li>
+<li>Mean of:
+<ol>
+<li>Expected returns</li>
+<li>Abnormal returns</li>
+<li>Cumulative&nbsp;abnormal&nbsp;returns</li>
+</ol>
+</li>
+</ol>
+<p>Example:</p>
+<div><div id="highlighter_29991" class="syntaxhighlighter  python"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="python keyword">from</code> <code class="python plain">datetime </code><code class="python keyword">import</code> <code class="python plain">datetime</code></div><div class="line number2 index1 alt1"><code class="python keyword">from</code> <code class="python plain">finance.evtstudy </code><code class="python keyword">import</code> <code class="python plain">EventFinder, MultipleEvents</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="python plain">evtf </code><code class="python keyword">=</code> <code class="python plain">EventFinder(</code><code class="python string">'./data'</code><code class="python plain">)</code></div><div class="line number5 index4 alt2"><code class="python plain">evtf.symbols </code><code class="python keyword">=</code> <code class="python plain">[</code><code class="python string">'AMD'</code><code class="python plain">, </code><code class="python string">'CBG'</code><code class="python plain">]</code></div><div class="line number6 index5 alt1"><code class="python plain">evtf.start_date </code><code class="python keyword">=</code> <code class="python plain">datetime(</code><code class="python value">2008</code><code class="python plain">, </code><code class="python value">1</code><code class="python plain">, </code><code class="python value">1</code><code class="python plain">)</code></div><div class="line number7 index6 alt2"><code class="python plain">evtf.end_date </code><code class="python keyword">=</code> <code class="python plain">datetime(</code><code class="python value">2009</code><code class="python plain">, </code><code class="python value">12</code><code class="python plain">, </code><code class="python value">31</code><code class="python plain">)</code></div><div class="line number8 index7 alt1"><code class="python plain">evtf.function </code><code class="python keyword">=</code> <code class="python plain">evtf.went_below(</code><code class="python value">3</code><code class="python plain">)</code></div><div class="line number9 index8 alt2"><code class="python plain">evtf.search()</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="python plain">mevt </code><code class="python keyword">=</code> <code class="python plain">MultipleEvents(</code><code class="python string">'./data'</code><code class="python plain">)</code></div><div class="line number12 index11 alt1"><code class="python plain">mevt.matrix </code><code class="python keyword">=</code> <code class="python plain">evtf.matrix</code></div><div class="line number13 index12 alt2"><code class="python plain">mevt.market </code><code class="python keyword">=</code> <code class="python string">'SPY'</code></div><div class="line number14 index13 alt1"><code class="python plain">mevt.lookback_days </code><code class="python keyword">=</code> <code class="python value">20</code></div><div class="line number15 index14 alt2"><code class="python plain">mevt.lookforward_days </code><code class="python keyword">=</code> <code class="python value">20</code></div><div class="line number16 index15 alt1"><code class="python plain">mevt.estimation_period </code><code class="python keyword">=</code> <code class="python value">200</code></div><div class="line number17 index16 alt2"><code class="python plain">mevt.run()</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="python functions">print</code><code class="python plain">(mevt.mean_abnormal_return)</code></div><div class="line number20 index19 alt1">&nbsp;</div><div class="line number21 index20 alt2"><code class="python keyword">import</code> <code class="python plain">matplotlib</code></div><div class="line number22 index21 alt1"><code class="python plain">matplotlib.use(</code><code class="python string">'Qt4Agg'</code><code class="python plain">) </code><code class="python comments"># Probably most people dont need this line</code></div><div class="line number23 index22 alt2"><code class="python keyword">import</code> <code class="python plain">matplotlib.pyplot as plt</code></div><div class="line number24 index23 alt1"><code class="python plain">mevt.mean_cumulative_abnormal_return.plot()</code></div><div class="line number25 index24 alt2"><code class="python plain">plt.show()</code></div></div></td></tr></tbody></table></div></div>
+<p>Output:</p>
+<pre>-20   -0.064385
+-19    0.073792
+ ...
+-1    -0.011918
+ 0     0.009591
+ 1    -0.119249
+ ...
+ 19   -0.076149
+ 20   -0.097525</pre>
+<div id="attachment_144" class="wp-caption aligncenter" style="width: 650px"><a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/cum_abnormal_returns/" rel="attachment wp-att-144"><img class="size-large wp-image-144" alt="Event Study - Mean Cumulative Abnormal Returns" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/cum_abnormal_returns.png" height="480" width="640"></a><p class="wp-caption-text">Event Study – Mean Cumulative Abnormal Returns</p></div>
+<h2>Conclusion</h2>
+<p>As usual the code is on github: <a title="PythonFinance" href="https://github.com/dfrodriguez143/PythonFinance">PythonFinance</a></p>
+<p><em>What is next?</em> A more real-life example using ipython</p>
+<div id="jp-post-flair" class="sharedaddy sd-rating-enabled sd-like-enabled sd-sharing-enabled"><div class="sd-block sd-rating"><h3 class="sd-title">Rate this:</h3><div style="display: inline-block;" class="pd-rating" id="pd_rating_holder_6267470_post_134"><div class="rating-icons" id="pd_rate_6267470_post_134" style="float:left;"><div class="rating-star-icon" onmouseout="PDRTJS_6267470_post_134.rebuild();" onclick="PDRTJS_6267470_post_134.rate(1);" onmouseover="PDRTJS_6267470_post_134.hover(1);" id="PDRTJS_6267470_post_134_stars_1" style="background-size: 32px 48px!important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/ratings/images/star-yellow-sml.png) bottom left; float: left; padding: 0px; marging: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_6267470_post_134.rebuild();" onclick="PDRTJS_6267470_post_134.rate(2);" onmouseover="PDRTJS_6267470_post_134.hover(2);" id="PDRTJS_6267470_post_134_stars_2" style="background-size: 32px 48px!important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/ratings/images/star-yellow-sml.png) bottom left; float: left; padding: 0px; marging: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_6267470_post_134.rebuild();" onclick="PDRTJS_6267470_post_134.rate(3);" onmouseover="PDRTJS_6267470_post_134.hover(3);" id="PDRTJS_6267470_post_134_stars_3" style="background-size: 32px 48px!important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/ratings/images/star-yellow-sml.png) bottom left; float: left; padding: 0px; marging: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_6267470_post_134.rebuild();" onclick="PDRTJS_6267470_post_134.rate(4);" onmouseover="PDRTJS_6267470_post_134.hover(4);" id="PDRTJS_6267470_post_134_stars_4" style="background-size: 32px 48px!important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/ratings/images/star-yellow-sml.png) bottom left; float: left; padding: 0px; marging: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_6267470_post_134.rebuild();" onclick="PDRTJS_6267470_post_134.rate(5);" onmouseover="PDRTJS_6267470_post_134.hover(5);" id="PDRTJS_6267470_post_134_stars_5" style="background-size: 32px 48px!important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/ratings/images/star-yellow-sml.png) bottom left; float: left; padding: 0px; marging: 0px; margin-right: 1px;">&nbsp;</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_6267470_post_134" style="display:block;float:left;background:url(http://i0.poll.fm/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_6267470_post_134.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_6267470_post_134">&nbsp;</div><div class="rating-msg" id="PDRTJS_6267470_post_134_msg" style="float:left; padding-left: 5px; text-align: left; font:normal normal /16px ; color: #;">Rate This</div><p style="padding: 0px; margin: 0px; clear: both;"></p><img src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/p-ab3gTb8xb3dLg.gif" style="display: none;" alt="Quantcast" border="0" height="1" width="1"></div></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/?share=twitter&amp;nb=1" title="Click to share on Twitter" id="sharing-twitter-134"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/?share=facebook&amp;nb=1" title="Share on Facebook" id="sharing-facebook-134"><span>Facebook</span></a></li><li class="share-end"></li></ul><div class="sharing-clear"></div></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded" id="like-post-wrapper-41607479-134" data-src="http://widgets.wp.com/likes/#blog_id=41607479&amp;post_id=134&amp;origin=http://ctrl68.wordpress.com" data-name="like-post-frame-41607479-134"><h3 class="sd-title">Like this:</h3><div class="post-likes-widget-placeholder" style="height:55px"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><span class="sd-text-color"></span><a class="sd-link-color"></a></div></div>			</div><!-- .entry-content -->
+	
+		<div class="entry-meta">
+		This entry was posted in <a href="http://ctrl68.wordpress.com/category/python/" title="View all posts in Python" rel="category tag">Python</a>, <a href="http://ctrl68.wordpress.com/category/python/pythonfinance/" title="View all posts in PythonFinance" rel="category tag">PythonFinance</a> and tagged <a href="http://ctrl68.wordpress.com/tag/coursera/" rel="tag">Coursera</a>, <a href="http://ctrl68.wordpress.com/tag/finance/" rel="tag">Finance</a>, <a href="http://ctrl68.wordpress.com/tag/pandas/" rel="tag">Pandas</a>, <a href="http://ctrl68.wordpress.com/tag/python/" rel="tag">Python</a>. Bookmark the <a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/" title="Permalink to basic Python Finance Package V0.03 – Date Utils, Lists Utils, Event&nbsp;Studies" rel="bookmark">permalink</a>.	</div><!-- .entry-meta -->
+	
+</article><!-- #post-134 -->
+					<nav role="navigation" id="nav-below" class="site-navigation clearfix post-navigation">
+		<h1 class="assistive-text">Post navigation</h1>
+
+	
+		<div class="nav-previous"><a href="http://ctrl68.wordpress.com/2012/12/17/python-finance-package-v0-02-basic-utils-and-market-simulator/" rel="prev"><span class="meta-nav">←</span> Python Finance Package v0.02 – Basic Utils and Market&nbsp;Simulator</a></div>		<div class="nav-next"><a href="http://ctrl68.wordpress.com/2012/12/28/basic-python-finance-package-v0-035-event-study-and-market-simulator-integration-example/" rel="next">basic Python Finance Package v0.035 – Event study and market simulator Integration +&nbsp;Example <span class="meta-nav">→</span></a></div>
+	
+	</nav><!-- #nav-below -->
+	
+				
+	<div id="comments" class="comments-area clearfix">
+
+			<hr class="sep">
+		<h2 class="comments-title">
+			4 Comments		</h2>
+
+		
+		<ol class="commentlist">
+				<li class="comment byuser comment-author-katylucyjordan even thread-even depth-1 highlander-comment" id="li-comment-202">
+		<article id="comment-202" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img id="grav-74ded6b490332c1c89fffbe657b65f41-0" alt="" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/74ded6b490332c1c89fffbe657b65f41.png" class="avatar avatar-50 grav-hashed grav-hijack" height="50" width="50">					<cite class="fn"><a href="http://webscienceprimer.wordpress.com/" rel="external nofollow" class="url">katylucyjordan</a></cite> <span class="says">says:</span>|				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/comment-page-1/#comment-202"><time pubdate="" datetime="2013-02-16T05:51:34+00:00">
+					February 16, 2013 at 5:51 AM					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+
+							</footer>
+
+			<div class="comment-content"><p>Hi, I’m currently doing a mini 
+project about the different ways various MOOCs are assessed, and one I’m
+ keen to find out more about is the Computational Investing course. Was 
+it assessed by multiple choice questions, or auto graded numeric 
+problems sets, or something else? Were there are peer assessments? Many 
+thanks! Katy</p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/?replytocom=202#respond" onclick='return addComment.moveForm("comment-202", "202", "respond", "134")'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+
+	<ul class="children">
+	<li class="comment byuser comment-author-dfrodriguez143 bypostauthor odd alt depth-2 highlander-comment" id="li-comment-203">
+		<article id="comment-203" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img id="grav-2aae7ed1f12c05b5711558c1b5902f05-0" alt="" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/2aae7ed1f12c05b5711558c1b5902f05.jpg" class="avatar avatar-50 grav-hashed grav-hijack" height="50" width="50">					<cite class="fn"><a href="http://ctrl68.wordpress.com/" rel="external nofollow" class="url">Daniel Rodriguez</a></cite> <span class="says">says:</span>|				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/comment-page-1/#comment-203"><time pubdate="" datetime="2013-02-16T18:56:24+00:00">
+					February 16, 2013 at 6:56 PM					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+
+							</footer>
+
+			<div class="comment-content"><p>Hi, the version I took was assessed 
+by weekly quizzes of multiple choice questions, no peer assessments on 
+that course. But currently I am taking another Coursera course (Data 
+Analysis) and is has weekly multiple choice quizzes and also peer 
+assessments.</p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/?replytocom=203#respond" onclick='return addComment.moveForm("comment-203", "203", "respond", "134")'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+
+	<ul class="children">
+	<li class="comment byuser comment-author-katylucyjordan even depth-3 highlander-comment" id="li-comment-204">
+		<article id="comment-204" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img id="grav-74ded6b490332c1c89fffbe657b65f41-1" alt="" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/74ded6b490332c1c89fffbe657b65f41.png" class="avatar avatar-50 grav-hashed grav-hijack" height="50" width="50">					<cite class="fn"><a href="http://webscienceprimer.wordpress.com/" rel="external nofollow" class="url">katylucyjordan</a></cite> <span class="says">says:</span>|				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/comment-page-1/#comment-204"><time pubdate="" datetime="2013-02-17T04:13:45+00:00">
+					February 17, 2013 at 4:13 AM					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+
+							</footer>
+
+			<div class="comment-content"><p>Hi Daniel, great – that’s very helpful to know. Many thanks, Katy</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+
+	</li>
+</ul>
+</li>
+</ul>
+</li>
+	<li class="post pingback">
+		<p>Pingback: <a href="http://moocmoocher.wordpress.com/2013/02/13/synthesising-mooc-completion-rates/" rel="external nofollow" class="url">Synthesising MOOC completion rates | MoocMoocher</a></p>
+	</li>
+		</ol><!-- .commentlist -->
+
+		
+	
+	<hr class="sep">
+
+	
+									<div class="js" id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://ctrl68.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="height: 41px; resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; width: 778px; line-height: 21px; text-decoration: none; letter-spacing: 0px;" placeholder="Enter your comment here..."></textarea><textarea style="height: 41px; resize: none; overflow-y: hidden;" placeholder="Enter your comment here..." id="comment" name="comment"></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+	
+	
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+});
+</script>
+
+<div style="display: none;" id="comment-form-subscribe"> 
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p style="display: none;" class="form-submit">
+							<input name="submit" id="comment-submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="134" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						
+<input name="genseq" value="1364993934" type="hidden">
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="a62f9d292d" type="hidden"></p><script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/form.js"></script>
+<p style="display: none;"><input id="ak_js" name="ak_js" value="1364993937352" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+</div><!-- #comments .comments-area -->
+
+			
+			</div><!-- #content .site-content -->
+		</div><!-- #primary .content-area -->
+
+
+<div id="secondary" class="widgets clearfix">
+	
+		<div id="first" class="widget-area" role="complementary">
+		<aside id="search-3" class="widget widget_search">	<form method="get" id="searchform" action="http://ctrl68.wordpress.com/" role="search">
+		<label for="s" class="assistive-text">Search</label>
+		<input class="field" name="s" id="s" placeholder="Search …" type="text">
+		<input class="submit noticon-search" name="submit" id="searchsubmit" value="S" type="submit">
+	</form>
+</aside><aside id="categories-3" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-69816"><a href="http://ctrl68.wordpress.com/category/cloud/" title="View all posts filed under Cloud">Cloud</a>
+</li>
+	<li class="cat-item cat-item-83336"><a href="http://ctrl68.wordpress.com/category/data-analysis/" title="View all posts filed under Data Analysis">Data Analysis</a>
+</li>
+	<li class="cat-item cat-item-15988"><a href="http://ctrl68.wordpress.com/category/python/django/" title="View all posts filed under Django">Django</a>
+</li>
+	<li class="cat-item cat-item-832"><a href="http://ctrl68.wordpress.com/category/python/" title="View all posts filed under Python">Python</a>
+</li>
+	<li class="cat-item cat-item-130966515"><a href="http://ctrl68.wordpress.com/category/python/pythonfinance/" title="View all posts filed under PythonFinance">PythonFinance</a>
+</li>
+	<li class="cat-item cat-item-721"><a href="http://ctrl68.wordpress.com/category/this-blog/" title="View all posts filed under This blog">This blog</a>
+</li>
+		</ul>
+</aside>	</div><!-- #first .widget-area -->
+	
+		<div id="second" class="widget-area" role="complementary">
+		<aside id="rss_links-2" class="widget widget_rss_links"><ul><li><a href="http://ctrl68.wordpress.com/feed/" title="Subscribe to Posts">RSS - Posts</a></li><li><a href="http://ctrl68.wordpress.com/comments/feed/" title="Subscribe to Comments">RSS - Comments</a></li></ul>
+</aside><aside id="wp_tag_cloud-2" class="widget wp_widget_tag_cloud"><h1 class="widget-title">Tags</h1><div style="overflow:hidden"><a href="http://ctrl68.wordpress.com/tag/appfog/" class="tag-link-62453922" title="1 topic" style="font-size: 8pt;">AppFog</a>
+<a href="http://ctrl68.wordpress.com/tag/cloud9/" class="tag-link-2319791" title="1 topic" style="font-size: 8pt;">Cloud9</a>
+<a href="http://ctrl68.wordpress.com/tag/computational-investing/" class="tag-link-122473857" title="1 topic" style="font-size: 8pt;">Computational Investing</a>
+<a href="http://ctrl68.wordpress.com/tag/coursera/" class="tag-link-76917337" title="4 topics" style="font-size: 16.615384615385pt;">Coursera</a>
+<a href="http://ctrl68.wordpress.com/tag/cousera/" class="tag-link-87865582" title="1 topic" style="font-size: 8pt;">Cousera</a>
+<a href="http://ctrl68.wordpress.com/tag/ddns/" class="tag-link-3990685" title="1 topic" style="font-size: 8pt;">DDNS</a>
+<a href="http://ctrl68.wordpress.com/tag/django/" class="tag-link-15988" title="1 topic" style="font-size: 8pt;">Django</a>
+<a href="http://ctrl68.wordpress.com/tag/ecryption/" class="tag-link-991274" title="1 topic" style="font-size: 8pt;">Ecryption</a>
+<a href="http://ctrl68.wordpress.com/tag/finance/" class="tag-link-4269" title="4 topics" style="font-size: 16.615384615385pt;">Finance</a>
+<a href="http://ctrl68.wordpress.com/tag/gtd/" class="tag-link-1247" title="1 topic" style="font-size: 8pt;">GTD</a>
+<a href="http://ctrl68.wordpress.com/tag/nirvana/" class="tag-link-21592" title="1 topic" style="font-size: 8pt;">Nirvana</a>
+<a href="http://ctrl68.wordpress.com/tag/numpy/" class="tag-link-2910438" title="1 topic" style="font-size: 8pt;">Numpy</a>
+<a href="http://ctrl68.wordpress.com/tag/pandas/" class="tag-link-32629" title="5 topics" style="font-size: 18.338461538462pt;">Pandas</a>
+<a href="http://ctrl68.wordpress.com/tag/python/" class="tag-link-832" title="8 topics" style="font-size: 22pt;">Python</a>
+<a href="http://ctrl68.wordpress.com/tag/sas/" class="tag-link-22267" title="1 topic" style="font-size: 8pt;">SAS</a>
+<a href="http://ctrl68.wordpress.com/tag/scikit-learn/" class="tag-link-59016089" title="1 topic" style="font-size: 8pt;">Scikit-learn</a>
+<a href="http://ctrl68.wordpress.com/tag/tasks/" class="tag-link-7296" title="1 topic" style="font-size: 8pt;">Tasks</a>
+<a href="http://ctrl68.wordpress.com/tag/wxpython/" class="tag-link-21799" title="1 topic" style="font-size: 8pt;">wxPython</a></div></aside><aside id="archives-3" class="widget widget_archive"><h1 class="widget-title">Archives</h1>		<ul>
+			<li><a href="http://ctrl68.wordpress.com/2013/02/" title="February 2013">February 2013</a></li>
+	<li><a href="http://ctrl68.wordpress.com/2013/01/" title="January 2013">January 2013</a></li>
+	<li><a href="http://ctrl68.wordpress.com/2012/12/" title="December 2012">December 2012</a></li>
+	<li><a href="http://ctrl68.wordpress.com/2012/11/" title="November 2012">November 2012</a></li>
+	<li><a href="http://ctrl68.wordpress.com/2012/10/" title="October 2012">October 2012</a></li>
+		</ul>
+</aside>	</div><!-- #second .widget-area -->
+	
+		</div><!-- #secondary .widget-area -->
+
+	</div><!-- #main .site-main -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+						<span class="credits">
+				<a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.
+				<span class="sep"> | </span>
+				Theme: <a href="http://theme.wordpress.com/themes/widely/" title="Learn more about this theme">Widely</a> by <a href="http://www.themeskingdom.com/" rel="designer">Themes Kingdom</a>.			</span>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon .site-footer -->
+</div><!-- #page .hfeed .site -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":",language.en,type.wpcom,posttag.coursera,posttag.finance,posttag.pandas,posttag.python"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cposttag.coursera%2Cposttag.finance%2Cposttag.pandas%2Cposttag.python" height="1" width="1" alt="" /></div></noscript>
+
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/wpgroho.js"></script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wp-admin-bar-my-account' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-74ded6b490332c1c89fffbe657b65f41">
+	</div>
+	<div class="grofile-hash-map-2aae7ed1f12c05b5711558c1b5902f05">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/ctrl68.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/ctrl68.wordpress.com\/wp-login.php?action=logout&_wpnonce=f38dc09c8e","homeURL":"http:\/\/ctrl68.wordpress.com\/","postID":"134","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/script.js"></script>
+
+	<div style="bottom: -216px;" id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “CTRL 68”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input name="email" style="width: 95%; padding: 1px 2px" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;' id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="41607479" type="hidden">
+			<input name="source" value="http://ctrl68.wordpress.com/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="bed42dc650" type="hidden"><input name="_wp_http_referer" value="/2012/12/26/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" charset="UTF-8" id="polldaddyRatings"><!--//--><![CDATA[//><!--
+PDRTJS_settings_6267470_post_134={"id":6267470,"unique_id":"wp-post-134","title":"basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils%2C%20Lists%20Utils%2C%20Event%26nbsp%3BStudies","permalink":"http:\/\/ctrl68.wordpress.com\/2012\/12\/26\/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies\/","item_id":"_post_134"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_6267470_post_134 == 'undefined' ){PDRTJS_6267470_post_134 = new PDRTJS_RATING( PDRTJS_settings_6267470_post_134 );}}
+//--><!]]></script><script type="text/javascript" charset="UTF-8" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/rating.js"></script>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/ctrl68.wordpress.com\/2012\/12\/26\/basic-python-finance-package-v0-03-date-utils-lists-utils-event-studies\/":134}	</script>
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/sharing.js"></script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/master.htm" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'					
+				} );
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						var requests = [];
+						jQuery( '.jetpack-likes-widget-wrapper' ).each( function( i ) {
+							var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)/;
+							var match = regex.exec( this.id );
+							if ( ! match || match.length != 4 )
+								return;
+
+							var info = {
+								blog_id: match[2],
+								width:   this.width
+							};
+
+							if ( 'post' == match[1] ) {
+								info.post_id = match[3];
+							} else if ( 'comment' == match[1] ) {
+								info.comment_id = match[3];
+							}
+
+							requests.push( info );
+						});
+
+						JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 10 );
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+			}
+			setInterval( JetpackLikesWidgetQueueHandler, 250 );
+		//]]>
+		</script>
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/a.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?m=1363661091g&amp;ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/a_002.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'41607479','v':'wpcom','tz':'-6','user_id':'0','post':'134','subd':'ctrl68'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1lYixwbDJzR2UxfERBOWN1WEZPJjlNT1B8Sz9dMlkld0Q9WTZdOSt0cmp4Qk9OX2dZQ1tIV3RCbTg0N2NacUc5WlRBYW5hQV1UT21vSVgmUGR8aF89Nmo/Ykc4NXZXU352NlJKSjZMbUNNRTQydXR3cmNIRXRkd3grdTh2OWhBZmp2OHdfYnVkZzdsVmZKej1IRmEmMj1lRi4vd1RMVV12JmxKN0dQQThdS35OWzNdfkJYYzliPWJbeXMxbGNZaXZqdThXM35HeVVZamVbeXlXflVdNlslZHE2K3VXLys0V3VJW1RLdm1NYyVQZkpWaCtjPUwxZEg/fn4ucks2UnF8JiU2MXcveDRHbHV6cFJ3elNkZHhDakNYfGJReURkUFI9LXVObT9vb2ZDdjYxd0c0dUE0cg=='});
+addLoadEvent(function(){linktracker_init('41607479',134);});
+	</script><img id="wpstats" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/g.gif" alt=""><img id="wpstats2" src="basic%20Python%20Finance%20Package%20V0.03%20%E2%80%93%20Date%20Utils,%20Lists%20Utils,%20Event%20Studies%20%C2%AB%20CTRL%2068_files/g_002.gif" alt="" style="display:none">
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+
+
+</body></html>

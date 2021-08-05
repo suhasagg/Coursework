@@ -1,0 +1,361 @@
+.blue {
+	color: #0099cc;
+}
+.red {
+	color: red;
+}
+.tablevague {
+	font-weight: bold;
+	color: #966C52;	
+}
+.vague {
+	color: #777777;
+}
+.theme {
+	font-weight:700;
+	color: #A06C52;	
+}
+.btheme {
+	font-weight:700;
+	color: #A06C52;	
+}
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-moz-binding: url('ellipsis.xml#ellipsis');
+}
+
+body {
+	color:#111;
+	background-color:white;
+	margin:10px;
+	padding:0px;
+	font:13px verdana, arial, helvetica, sans-serif;
+}
+
+h1 {
+	margin:0px 0px 0px 0px;
+	padding:0px;
+	font-size:28px;
+	font-weight:500;
+	color:#966C52;
+}
+
+h2 {
+	margin:0px 0px 0px 0px;
+	padding:0px;
+	font-size:24px;
+	font-weight:500;
+	color:#966C52;
+}
+
+h3 {
+	font: 16px verdana, arial, helvetica, sans-serif;
+	margin:0px 0px 5px 0px;
+	padding:0px;
+}
+
+h4 {
+	font: 13px verdana, arial, helvetica, sans-serif;
+	margin:0px 0px 2px 0px;
+	padding:0px;
+	font-weight:700;
+	color:#333;
+}
+
+h5 {
+	font: 13px arial, sans-serif;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+}
+
+hr {
+	border: 0;
+	width: 100%;
+	color: #999;
+	background-color: #999;
+	height: 1px;
+}
+
+th {
+	font:13px verdana, arial, helvetica, sans-serif;
+	margin:0px 0px 3px 0px;
+	padding:0px;
+	text-align: left;
+}
+
+p {
+	font:11px/20px verdana, arial, helvetica, sans-serif;
+	margin:0px 0px 16px 0px;
+	padding:0px;
+}
+
+a:visited
+{
+    font-weight:500;
+    COLOR: #664444;
+    TEXT-DECORATION: underline;
+}
+
+a:hover
+{
+    COLOR: #FF5D08;
+    TEXT-DECORATION: underline;
+}
+
+a:link
+{
+    font-weight:500;
+    COLOR: #664444;
+    TEXT-DECORATION: underline;
+}
+
+a.nav:visited
+{
+    font-weight:600;
+    COLOR: #A06C52;
+    TEXT-DECORATION: underline;
+}
+
+a.nav:hover
+{
+    font-weight:600;
+    COLOR: #FF5D08;
+    TEXT-DECORATION: underline;
+}
+
+a.nav:link
+{
+    font-weight:600;
+    COLOR: #A06C52;
+    TEXT-DECORATION: underline;
+}
+
+.normal {
+	color: #333;
+	font-size: 12px;
+	margin-top: 1em;
+}
+
+.desp {
+	color: #333;
+	font-size: 14px;
+	margin-top: 1em;
+}
+
+.desp p {
+	text-align: justify;
+	color: #333;
+	font-size: 14px;
+	margin-top: 1em;
+}
+
+.Content>p {margin:0px;}
+
+.Content>p+p {text-indent:30px;}
+
+.logo {
+	float: left;
+	font-size: 18px;
+	font-family: Verdana, sans-serif;
+	margin-right: 0em;
+	margin-bottom: 5px;
+	color: #333;
+}	  
+
+.topright {
+/*	float: right;*/
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0em;
+	padding-left: 0em;
+	padding-right: 0em;
+	right: 0;
+	top: 0;
+	text-align: right;
+}
+
+.navsec {
+	position:absolute;
+	width:140px;
+	top:92px;
+	left:10px;
+	line-height: 2.0em; 
+}
+body>.navsec {width:128px;}
+
+.navsec ul {
+	margin-top:0; 
+	margin-bottom:0; 
+	list-style-type:circle; 
+	list-style-position:outside;
+	line-height: 1.2em;
+}
+
+.menusec {
+	position:relative;
+	width:140px;
+	border-left:1px solid #aaaaaa;
+	border-right:1px solid #aaaaaa;
+	border-bottom:1px solid #aaaaaa;
+	border-top:1px solid #aaaaaa;
+	background-color:#f6f6f6;
+	padding:5px 10px 5px 10px;
+	z-index:2;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+}
+body>.menusec {width:128px;}
+
+.infosec {
+	position:relative;
+	width:150px;
+	margin:5px 0 0 0;
+	border-left:1px solid #aaaaaa;
+	border-right:1px solid #aaaaaa;
+	border-bottom:1px solid #aaaaaa;
+	border-top:1px solid #aaaaaa;
+	background-color:#f6f6f6;
+	padding:5px 5px 5px 5px;
+	z-index:2;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	line-height: 160%;
+}
+body>.infosec {width:128px;}
+
+.bimgsec {
+	position:relative;
+	width:160px;
+	margin:5px 0 0 0;
+	padding:0px;
+	border-left:1px solid #aaaaaa;
+	border-right:1px solid #aaaaaa;
+	border-bottom:1px solid #aaaaaa;
+	border-top:1px solid #aaaaaa;
+	z-index:2;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	line-height: 0em; 
+}
+body>.bimgsec {width:128px;}
+
+.bhidsec {
+    display:none;
+	position:relative;
+	width:160px;
+	margin:5px 0 0 0;
+	padding:0px;
+	border-left:1px solid #aaaaaa;
+	border-right:1px solid #aaaaaa;
+	border-bottom:1px solid #aaaaaa;
+	border-top:1px solid #aaaaaa;
+	z-index:2;
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	line-height: 0em; 
+}
+body>.bimgsec {width:128px;}
+
+.contsec {
+	position:relative; /* Position is declared "relative" to gain control of stacking order (z-index). */
+	width:auto;
+	min-width:798px;
+    max-width:1054px;
+	margin:1px 1px 4px 167px;
+	border:1px solid #aaaaaa;
+	background-color:white;
+	padding:10px;
+	z-index:3; /* This allows the content to overlap the right menu in narrow windows in good browsers. */
+	overflow: hidden;
+}
+
+.msgsec {
+	position:relative; /* Position is declared "relative" to gain control of stacking order (z-index). */
+	width:auto;
+	min-width:798px;
+    max-width:1054px;
+	margin:1px 1px 4px 167px;
+	border:1px solid #aaaaaa;
+	background-color:#ffffcc;
+	padding:10px;
+	z-index:3; /* This allows the content to overlap the right menu in narrow windows in good browsers. */
+	overflow: hidden;
+}
+
+.linkbar {
+	float: right;
+	width: 10em;	
+}
+
+.searchbox {
+	font-size: 12px;
+}
+
+.guide {
+	font-size: 13px;
+}
+
+.footer {
+	position:relative; /* Position is declared "relative" to gain control of stacking order (z-index). */
+	width:auto;
+	min-width:820px;
+    max-width:1076px;
+	margin:1px 1px 4px 167px;
+	border:0px;
+	padding:0px;
+	z-index:3; /* This allows the content to overlap the right menu in narrow windows in good browsers. */
+	overflow: hidden;
+	font-size: 11px;
+}
+
+.cfp {
+	background-color:#f6f6f6;
+	font:13px verdana, arial, helvetica, sans-serif;
+    padding:10px;
+}
+
+table.gglu th {
+  font:13px arial, sans-serif;
+  font-weight:700;
+  text-align: left;
+  padding-top:1px; 
+  padding-right:3px; 
+  padding-bottom:1px; 
+  padding-left:3px; 
+}
+
+table.gglu td {
+  font:13px arial, sans-serif;
+}
+
+a.blackbold {
+  font:13px arial, sans-serif;
+  font-weight:500;
+  color: #000;
+  TEXT-DECORATION: underline;
+}
+
+
+pre {
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	width: 99%;
+}
+
+.b1h, .b2h, .b3h, .b4h, .b2bh, .b3bh, .b4bh{font-size:1px; overflow:hidden; display:block;}
+.b1h {height:1px; background:#bbbbbb; margin:0 5px;}
+.b2h, .b2bh {height:1px; background:#bbbbbb; border-right:2px solid #bbbbbb; border-left:2px solid #bbbbbb; margin:0 3px;}
+.b3h, .b3bh {height:1px; background:#bbbbbb; border-right:1px solid #bbbbbb; border-left:1px solid #bbbbbb; margin:0 2px;}
+.b4h, .b4bh {height:2px; background:#bbbbbb; border-right:1px solid #bbbbbb; border-left:1px solid #bbbbbb; margin:0 1px;}
+.b2bh, .b3bh, .b4bh {background: #f6f6f6;}
+.headh {background: #bbbbbb; border-right:1px solid #bbbbbb; border-left:1px solid #bbbbbb;}
+.headh h3 {margin: 0px 10px 0px 10px; padding-bottom: 3px;}
+.contenth {background: #f6f6f6; border-right:1px solid #bbbbbb; border-left:1px solid #bbbbbb;}
+.contenth div {margin-left: 12px; padding-top: 5px;}

@@ -1,0 +1,728 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0053)http://www.wikicfp.com/cfp/call?conference=HCI&page=2 -->
+<html style="height: 572px; margin-top: 34px !important;" toolbar_fixed="1"><script>(function docInject_start() {
+        var toolbarHeight = 35,
+			windowHeightMinusToolbar = document.documentElement.clientHeight - toolbarHeight,
+			measurer;
+
+        window.addEventListener('load', function () {
+            window.toolbarLoad = true;
+
+            // measurer is used to calculate the height of the page's contents. The height is used to detect scrolling:
+            measurer = document.createElement('div');
+            measurer.id = "toolbar_measurer";
+            measurer.className = "SkipThisFixedPosition";
+            measurer.style.position = 'fixed';
+            measurer.style.bottom = '0';
+            document.body.appendChild(measurer);
+
+
+
+        }, false);
+        window.addEventListener('resize', function () {
+            // The HTML element's height should be the window height minus the toolbars' height:
+            document.documentElement.style.pixelHeight = getHeight();
+        }, false);
+
+        function getHeight() {
+
+            if (measurer) {
+                measurer.style.display = "block";
+                return Math.max(measurer.getClientRects()[0].bottom, 0);
+            }
+
+            return windowHeightMinusToolbar;
+        }
+
+
+
+
+        // If the HTML's height is queried by the page's scripts, return it without the toolbars' height
+
+
+
+        document.documentElement.__defineGetter__('clientHeight', function () {
+            return getHeight();
+        });
+        window.__defineGetter__('innerHeight', function () {
+            return getHeight();
+        });
+
+
+        // When client rects are requested by the page's scripts, they should be modified to reflect the toolbar(s):
+        var gc = HTMLElement.prototype.getClientRects;
+        HTMLElement.prototype.getClientRects = function () {
+            var res = gc.apply(this, arguments);
+            if (res && res.length)
+                res = res[0];
+            else
+                return null;
+
+
+            return [{
+                top: res.top - toolbarHeight,
+                left: res.left,
+                bottom: res.bottom - toolbarHeight,
+                right: res.right,
+                height: res.height,
+                width: res.width
+            }]
+        };
+        var gbc = HTMLElement.prototype.getBoundingClientRect;
+        HTMLElement.prototype.getBoundingClientRect = function () {
+            var res = gbc.apply(this, arguments);
+            res.topVal = res.top - toolbarHeight;
+            res.bottomVal = res.bottom - toolbarHeight;
+            res.__defineGetter__('top', function () {
+                return this.topVal;
+            });
+            res.__defineGetter__('bottom', function () {
+                return this.bottomVal;
+            });
+            return res;
+        };
+
+        var wrappedMouseMoveHandlers = [];
+
+        // Mouse move events are wrapped, so the pageY takes into account the toolbars' height (for mouseenter/mouseleave events, for example):
+        function wrapMouseMove(owner) {
+            var origAddEvent = owner.addEventListener,
+				origRemoveEvent = owner.removeEventListener;
+
+            owner.addEventListener = function (eventName, handler, useCapture) {
+                if (eventName == 'mousemove') {
+                    var wrapper = function (e) {
+                        e.stopPropagation();
+
+                        var ee = document.createEvent('MouseEvents');
+                        ee.initMouseEvent(e.type, e.cancelBubble, e.cancelable, e.view, e.detail, e.screenX, e.screenY, e.clientX, e.clientY - toolbarHeight, e.ctrlKey, e.altKey, e.shiftKey, e.metaKey, e.button, e.relatedTarget);
+                        ee.__defineGetter__("target", function () { return e.target });
+                        ee.__defineGetter__("srcElement", function () { return e.srcElement; });
+                        ee.__defineGetter__("toElement", function () { return e.toElement });
+                        handler.call(e.target, ee);
+                    };
+
+                    wrappedMouseMoveHandlers.push({ orig: handler, wrapped: wrapper });
+                    return origAddEvent.call(this, eventName, wrapper, useCapture);
+                } else origAddEvent.apply(this, arguments);
+            }
+
+            owner.removeEventListner = function (eventName, listener, useCapture) {
+                if (eventName === "mousemove") {
+                    for (var i = 0, count = wrappedMouseMoveHandlers.length; i < count; i++) {
+                        var handlerPair = wrappedMouseMoveHandlers[i];
+                        if (handlerPair.orig === listener) {
+                            wrappedMouseMoveHandlers.splice(i, 1);
+                            return origRemoveEvent.call(this, eventName, handlerPair.wrapped, useCapture);
+                        }
+                    }
+
+                    return origRemoveEvent.apply(this, arguments);
+                } else origRemoveEvent.apply(this, arguments);
+            }
+        }
+
+        if (window.location.href.indexOf("docs.google.com") === -1 && window.location.href.indexOf("f-i.com/broadway/iPad/") === -1) {
+            wrapMouseMove(Node.prototype);
+            wrapMouseMove(window.constructor.prototype);
+        }
+    })()<script src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/ga.js" async="true"></script></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/widget100.css" media="all">
+	<title>HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP</title>
+	
+	<meta name="description" content="HCI Calls For Papers (CFP) for international conferences, workshops, meetings, seminars, events, journals and book chapters">
+	<meta name="ROBOTS" content="INDEX,NOFOLLOW">
+	<link rel="stylesheet" type="text/css" href="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/wikicfp.css">
+	<link rel="shortcut icon" href="http://www.wikicfp.com/cfp/images/wikicfp.ico"> 
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2351831-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script');
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.setAttribute('async', 'true');
+    document.documentElement.firstChild.appendChild(ga);
+  })();
+</script>
+
+<script type="text/javascript">
+function recordOutboundLink(link, category, action, newtab) {
+  try {
+    _gaq.push(['_trackEvent', category, action]);
+    if (newtab > 0)
+        setTimeout('window.open("' + link.href + '", "_newtab")', 100);
+    else
+        setTimeout('document.location="' + link.href + '"', 100);
+  }catch(err){}
+}
+</script>
+
+<script id="__isTpiViewExists"></script><style>@media print { body { width: auto !important; } }</style><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/menu_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="menu_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"><link rel="stylesheet" type="text/css" href="chrome-extension://cgpnojibjokpoghebklhkdeijehkohhb/css/about.css"><script type="text/javascript">try{if(ups && ups.updateZIndex){ ups.updateZIndex(99996); }}catch(e){}</script><link rel="stylesheet" type="text/css" href="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/style.css"></head>
+
+<body bgcolor="#ffffee" style="position: absolute; width: 1329px; padding-top: 10px; margin-top: 0px; height: 596px !important;">
+
+	<div style="padding: 0px; position: absolute; top:1px; left:2px; right:11px; max-width:1251px; min-width: 995px">
+	  <div class="logo">
+	  	<table cellspacing="0"><tbody><tr valign="bottom">
+	  		<td align="left">
+				<img src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/wikicfplogo-90.png" style="cursor:pointer; vertical-align:-7px;" onclick="document.location.href=&#39;/&#39;" width="265" height="90" alt="WikiCFP">
+			</td>
+		</tr></tbody></table>
+	  </div>
+      <div class="topright" style="float: right;">
+           
+      </div>
+	</div>
+
+<div class="topright" style="height: 81px;">
+			
+</div>
+
+<div class="navsec">
+<div class="menusec">	
+	
+	<a class="nav" href="http://www.wikicfp.com/cfp/home" accesskey="h">Home</a>
+	<ul>
+		<li style="margin:0 0 0 -20;"><a class="nav" href="http://www.wikicfp.com/cfp/servlet/user.regin?mode=login">Login</a></li><li style="margin:0 0 0 -20;"><a class="nav" href="http://www.wikicfp.com/cfp/servlet/user.regin?mode=register">Register</a></li><li style="margin:0 0 0 -20;"><a class="nav" href="http://www.wikicfp.com/cfp/servlet/user.profile">Account</a></li><li style="margin:0 0 0 -20;"><a class="nav" href="http://www.wikicfp.com/cfp/servlet/user.logout">Logout</a></li>
+	</ul>
+
+	<a class="nav" href="http://www.wikicfp.com/cfp/allcat" accesskey="c">Categories</a><br>
+	<a class="nav" href="http://www.wikicfp.com/cfp/allcfp" accesskey="p">CFPs</a>
+	
+	<ul>
+		<li style="margin:0 0 0 -20;"><a class="nav" href="http://www.wikicfp.com/cfp/servlet/event.trycfp">Post a CFP</a></li>
+	</ul>
+
+	<a class="nav" href="http://www.wikicfp.com/cfp/series?t=c&i=A" accesskey="p">Conf Series</a> <!-- <img src="/cfp/images/new.gif" alt="" /> --> <br>
+<!--
+	<a class="nav" href="/cfp/series?t=j&i=A" accesskey="p">Journals</a><img src="/cfp/images/new.gif" alt="" /><br>
+-->
+	<a class="nav" href="http://www.wikicfp.com/cfp/servlet/event.showlist?ltype=w">My List</a><br>
+
+		<ul>
+		<li style="margin:0 0 0 -20;"><a class="nav" href="http://www.wikicfp.com/cfp/servlet/event.showtl?">Timeline</a></li>
+		</ul>	
+
+	<a class="nav" href="http://www.wikicfp.com/cfp/servlet/event.showlist?ltype=a">My Archive</a><br>
+
+	<a class="nav" href="http://www.todordimitrov.de/cfp-app/index.html" target="_blank">On iPhone</a><br>
+
+        <a class="nav" href="https://play.google.com/store/apps/details?id=net.kuratkoo.wikicfp" target="_blank">On Android</a><br>
+
+	<hr>
+
+	<div class="searchbox">
+	<form method="get" action="http://www.wikicfp.com/cfp/servlet/tool.search" style="margin: 0px; padding: 0px;">
+	<table align="center" cellpadding="0" cellspacing="0">	
+	<tbody><tr><td align="center" colspan="2">
+		<input name="q" placeholder="search CFPs" type="text" style="width:136px" value="" tabindex="100">
+	</td></tr>
+	<tr>
+
+
+
+        <td align="left"><select class="searchbox" name="year" tabindex="101">	
+               	<option value="t" selected="selected"> 2013</option>
+               	<option value="n"> 2014 </option>
+               	<option value="f"> 2013+  </option>
+               	<option value="a"> all </option>
+        </select></td>
+
+		<td align="right"><input class="searchbox" type="submit" value="Search" tabindex="102"></td>
+	</tr>
+	</tbody></table>
+	</form>
+	</div>
+</div>
+
+
+
+
+	
+        
+
+
+
+	
+    <div class="bimgsec">
+<script type="text/javascript"><!--
+google_ad_client = "pub-1584853130693801";
+/* 160x600, WikiCFP */
+google_ad_slot = "1563107349";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/show_ads.js">
+</script><ins style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><ins id="aswift_0_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px"><iframe allowtransparency="true" frameborder="0" height="600" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){w.location.replace(h)}}" scrolling="no" vspace="0" width="160" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+
+</div>
+    
+
+
+
+<!--
+<div class="infosec">
+<span class="btheme"><b>What's New</b></span><br>
+1. <span class="btheme">email</span> notification of deadline extension
+</div>
+-->
+
+
+<!--
+<div class="bimgsec" >
+<a href="http://twitter.com/wikicfp"><img border="0" src="/cfp/images/twitter_160.jpg" ALT="">
+</a>
+</div>
+-->
+
+</div><div class="SkipThisFixedPosition main-iframe-wrapper" id="main-iframe-wrapper" background="chrome-extension://cgpnojibjokpoghebklhkdeijehkohhb/screenShot.png" style="z-index: 2147483644; top: 0px; left: 0px; margin: 0px; line-height: 0; display: block !important; width: 100%; height: 34px; position: fixed;"></div>
+
+
+
+
+
+
+        	
+
+<script language="JavaScript" type="text/javascript">
+function OnSubmitForm() 
+{
+  if(document.pressed == 'AddToList')
+  {
+   	document.myform.action ="/cfp/servlet/event.copycfp";
+  }
+  return true;
+}
+
+function CheckAll()
+{
+  var forminputs = document.getElementsByTagName('input');
+  var status = document.myform.checkall.checked;
+  for (i = 0; i < forminputs.length; i++) {
+	if (forminputs[i].getAttribute('type') == 'checkbox'){
+	  forminputs[i].checked = status; 
+	}
+  }
+}
+
+</script>
+
+<div class="contsec">
+	
+	<center>
+	<form name="myform" method="get" onsubmit="return OnSubmitForm();" action="">	
+	<table cellpadding="0" cellspacing="0" align="center" width="100%">
+
+    <tbody><tr><td align="center"><table cellpadding="0" cellspacing="0" width="100%">
+
+    <tbody><tr>
+
+
+    <td><table cellpadding="0" cellspacing="0" align="left">
+	<tbody><tr>
+		<td align="left">
+			<h2>
+			  HCI
+			</h2>
+		</td>
+	</tr>
+    <tr>
+               <td align="left">
+	                            <span class="normal">
+								<script type="text/javascript">var addthis_disable_flash = true; var addthis_pub='wikicfp';</script> <a href="http://www.addthis.com/bookmark.php?v=20" onclick="return addthis_open(this, &#39;&#39;, &#39;http://www.wikicfp.com/cfp/call?conference=HCI&amp;page=2&#39;, &#39;HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP&#39;)"><img src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"></a><script type="text/javascript" src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/addthis_widget.js"></script>
+								</span>
+                                <span class="normal">
+
+										<a href="http://www.addthis.com/feed.php?pub=wikicfp&h1=http%3A%2F%2Fwww.wikicfp.com%2Fcfp%2Frss%3Fcat%3DHCI&t1=" title="HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP." target="_blank"><img src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/lg-rss-2-en.gif" width="125" height="16" border="0" alt="AddThis Feed Button"></a>        
+
+
+                                </span>
+                </td>
+	</tr>
+    <tr><td align="left">
+                <span class="vague">(ordered by deadline)</span>
+    </td></tr>
+    </tbody></table></td>
+
+
+
+    </tr>
+
+    </tbody></table></td></tr>
+
+    <tr><td>&nbsp;</td></tr>
+
+	<tr><td align="center">
+			<table cellpadding="3" cellspacing="1" align="center" width="100%">
+				<tbody><tr align="center" bgcolor="#bbbbbb"><td> Event </td><td> When </td><td> Where </td><td> Deadline</td><td><input type="checkbox" name="checkall" onclick="CheckAll()"></td></tr><tr align="center" bgcolor="#d0d0d0"><td colspan="5">Expired CFPs</td></tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=27440&copyownerid=24338">AUCDI 2013</a></td>
+<td align="left" colspan="3">Agile and User Centred Design Integration-What Lies Beneath and What Lies Ahead </td><td align="center" rowspan="2"><input type="checkbox" name="eventid_27440"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Feb 15, 2013 - Feb 15, 2013</td>
+<td align="left">York, UK</td>
+<td align="left">Jan 7, 2013</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=27450&copyownerid=13692">HCI3P 2013</a></td>
+<td align="left" colspan="3">CHI 2013 Workshop on Human Computer Interaction for Third Places</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_27450"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Apr 27, 2013 - Apr 28, 2013</td>
+<td align="left">Paris, France.</td>
+<td align="left">Dec 28, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=24362&copyownerid=2">EICS 2013</a></td>
+<td align="left" colspan="3">ACM SIGCHI Symposium on Engineering Interactive Computing Systems</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_24362"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Jun 24, 2013 - Jun 27, 2013</td>
+<td align="left">London, United Kingdom</td>
+<td align="left">Dec 17, 2012 (Dec 3, 1012)</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=24597&copyownerid=2">C&amp;C 2013</a></td>
+<td align="left" colspan="3">ACM Creativity and Cognition 2013</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_24597"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Jun 17, 2013 - Jun 20, 2013</td>
+<td align="left">Sydney, NSW, Australia</td>
+<td align="left">Dec 17, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=20014&copyownerid=20984">HCII 2013</a></td>
+<td align="left" colspan="3">15th International Conference on Human-Computer Interaction</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_20014"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Jul 21, 2013 - Jul 26, 2013</td>
+<td align="left">Las Vegas, Nevada, USA</td>
+<td align="left">Nov 9, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=23946&copyownerid=2468">IUI 2013</a></td>
+<td align="left" colspan="3">ACM International Conference on Intelligent User Interfaces</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_23946"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Mar 19, 2013 - Mar 22, 2013</td>
+<td align="left">Los Angeles, CA</td>
+<td align="left">Oct 22, 2012 (Oct 15, 2012)</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=23262&copyownerid=2">UCCV 2013</a></td>
+<td align="left" colspan="3">The 1st IEEE Workshop on User-Centred Computer Vision</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_23262"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Jan 16, 2013 - Jan 18, 2013</td>
+<td align="left">Tampa, Florida, U.S.A.</td>
+<td align="left">Sep 21, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=21059&copyownerid=34547">CHI 2013</a></td>
+<td align="left" colspan="3">31th Human Factors in Computing Systems</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_21059"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Apr 27, 2013 - May 2, 2013</td>
+<td align="left">Paris, France</td>
+<td align="left">Sep 19, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=23644&copyownerid=34475">HCITOCH 2012</a></td>
+<td align="left" colspan="3">Third International Workshop on Human-Computer Interaction, Tourism and Cultural Heritage (HCITOCH 2012)</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_23644"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Sep 27, 2012 - Sep 28, 2012</td>
+<td align="left">Venice, Italy</td>
+<td align="left">Sep 18, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=25883&copyownerid=2">SocialInformatics 2012</a></td>
+<td align="left" colspan="3">ASE International Conference on Social Informatics</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_25883"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Dec 14, 2012 - Dec 16, 2012</td>
+<td align="left">Washington, DC, USA</td>
+<td align="left">Sep 15, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=16340&copyownerid=2">HRI 2013</a></td>
+<td align="left" colspan="3">ACM/IEEE International Conference on Human-Robot Interaction</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_16340"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Mar 4, 2013 - Mar 6, 2013</td>
+<td align="left">Tokyo, Japan</td>
+<td align="left">Sep 10, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=22895&copyownerid=2">IHCI 2012</a></td>
+<td align="left" colspan="3">4th International Conference on Intelligent Human Computer Interaction</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_22895"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Dec 27, 2012 - Dec 29, 2012</td>
+<td align="left">Kharagpur, India</td>
+<td align="left">Sep 1, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=24115&copyownerid=29355">DCCV 2012</a></td>
+<td align="left" colspan="3">Workshop on Developer-Centred Computer Vision</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_24115"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Nov 5, 2012 - Nov 9, 2012</td>
+<td align="left">Daejeon, South Korea</td>
+<td align="left">Aug 31, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=23237&copyownerid=34079">AUIC 2013</a></td>
+<td align="left" colspan="3">Australasian User Interface Conference </td><td align="center" rowspan="2"><input type="checkbox" name="eventid_23237"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Jan 29, 2013 - Feb 1, 2013</td>
+<td align="left">Adelaide, Australia</td>
+<td align="left">Aug 13, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=23369&copyownerid=13361">TEI 2013</a></td>
+<td align="left" colspan="3">Seventh International Conference on Tangible, Embedded and Embodied Interaction</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_23369"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Feb 10, 2013 - Feb 13, 2013</td>
+<td align="left">Barcelona, Spain</td>
+<td align="left">Aug 6, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=21126&copyownerid=31578">AVEC 2012</a></td>
+<td align="left" colspan="3">(B) 2nd International Audio/Visual Emotion Challenge and Workshop</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_21126"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Oct 22, 2012 - Oct 26, 2012</td>
+<td align="left">Santa Monica, California, USA</td>
+<td align="left">Jul 21, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=24848&copyownerid=2">MAB 2012</a></td>
+<td align="left" colspan="3">Media Architecture Biennale 2012</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_24848"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Nov 15, 2012 - Nov 17, 2012</td>
+<td align="left">Aarhus, Denmark</td>
+<td align="left">Jul 20, 2012</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=24464&copyownerid=29568">Visualization 2012</a></td>
+<td align="left" colspan="3">ECCE 2012 Workshop: Visualization - Beauty or the Beast</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_24464"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Aug 28, 2012 - Aug 28, 2012</td>
+<td align="left">Edinburgh, Scotland</td>
+<td align="left">Jul 15, 2012</td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=21311&copyownerid=21613">COLLABORATECOM 2012</a></td>
+<td align="left" colspan="3">The 8th International Conference on Collaborative Computing: Networking, Applications and Worksharing</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_21311"></td>
+</tr>
+<tr bgcolor="#f6f6f6">
+<td align="left">Oct 14, 2012 - Oct 17, 2012</td>
+<td align="left">Pittsburgh, USA</td>
+<td align="left">Jul 13, 2012 (Jul 6, 2012)</td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td rowspan="2" align="left"><a href="http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=23103&copyownerid=37821">SKALID 2012</a></td>
+<td align="left" colspan="3">Workshop on Spatial Knowledge Acquisition with Limited Information Displays</td><td align="center" rowspan="2"><input type="checkbox" name="eventid_23103"></td>
+</tr>
+<tr bgcolor="#e6e6e6">
+<td align="left">Aug 31, 2012 - Aug 31, 2012</td>
+<td align="left">Kloster Seeon, Germany</td>
+<td align="left">Jul 1, 2012</td>
+</tr>
+
+			</tbody></table>
+	</td></tr>
+	
+	<tr><td>
+		<table cellpadding="2" cellspacing="2" align="center" width="100%"><tbody><tr>
+
+			<td nowrap="" align="left">
+			<a href="http://www.wikicfp.com/cfp/call?conference=HCI&page=1">first</a> |			
+        
+<a href="http://www.wikicfp.com/cfp/call?conference=HCI&page=1">previous</a>
+
+				| Page 2 |
+
+        
+<a href="http://www.wikicfp.com/cfp/call?conference=HCI&page=3">next</a>
+
+			| <a href="http://www.wikicfp.com/cfp/call?conference=HCI&page=20">last</a>			
+			</td>
+
+			<td align="center">
+				Total of 382 CFPs in 20 pages
+			</td>
+
+			<td align="right" width="35%">
+			    <input name="getaddress" type="hidden" value="call">
+				<input name="conference" type="hidden" value="HCI">
+				<input name="page" type="hidden" value="2">
+				<input type="submit" name="AddToList" onclick="document.pressed=this.name" value="Add to My List">
+			</td>			
+			
+		</tr></tbody></table>	
+	</td></tr>
+
+	</tbody></table>
+	</form>	
+	</center>
+</div>
+
+
+
+<div class="footer">
+<center> 
+
+<table cellpadding="0" cellspacing="0" width="100%"><tbody><tr valign="top">
+
+<td align="left">
+<table cellpadding="0">
+<tbody><tr><td align="left">
+<a href="http://www.wikicfp.com/cfp/about.jsp">About Us</a> |
+<a href="mailto:wikicfp@gmail.com">Contact Us</a> |
+<a href="http://www.wikicfp.com/cfp/data.jsp">Data</a> |
+<a href="http://www.wikicfp.com/cfp/privacy.jsp">Privacy Policy</a> |
+<a href="http://www.wikicfp.com/cfp/terms.jsp">Terms and Conditions</a>
+</td></tr>
+<tr><td align="left">
+This wiki is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 License</a>.
+</td></tr></tbody></table>
+</td>
+
+<td align="right">
+<a href="http://www4.clustrmaps.com/counter/maps.php?url=http://www.wikicfp.com" target="_blank" id="clustrMapsLink"><img src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/index2.php" style="border:0px;" width="160" height="90" alt="Locations of visitors to WikiCFP" title="Locations of visitors to WikiCFP" id="clustrMapsImg">
+</a>
+</td>
+
+</tr></tbody></table>
+
+</center>
+</div>
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript">
+_qoptions={
+qacct:"p-bavkT9R1uB7qI"
+};
+</script>
+<script type="text/javascript" src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/quant.js"></script>
+<noscript>
+&lt;img src="http://pixel.quantserve.com/pixel/p-bavkT9R1uB7qI.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/&gt;
+</noscript>
+<!-- End Quantcast tag -->
+
+
+
+
+
+
+ 
+<div id="toolbar_measurer" class="SkipThisFixedPosition" style="position: fixed; bottom: 0px; display: block;"></div><div id="mainContainer_CTID"><div class="fixedDiv UrlGadgetsDiv" style="position: fixed; left: 0px; z-index: 2147483640; top: 34px !important;" fixed_managed="2"></div><div class="fixedDiv SkipThisFixedPosition GeneralGadgetsDiv" style="position: fixed; left: 0px; z-index: 2147483644; width: 100%; top: 34px !important;"></div></div><script>(function docInject_end(){ var toolbarHeight = 34, foundAttribute = 'fixed_managed'; function fixedIntervalCallback(el) {
+                                var styleTop = el.style.top,
+			styleTopInt = parseInt(styleTop, 10);
+
+                                if (typeof (el.prevTop) !== 'undefined' && !isNaN(styleTopInt) && ((el.prevTop !== styleTop && (styleTop === '0' || /^\d+\s?px/.test(styleTop))))) {
+
+                                    el.prevTop = el.style.top = (styleTopInt + toolbarHeight) + 'px';
+                                }
+                            }function moveFixed(el) {
+
+                                var foundId = el.getAttribute(foundAttribute),
+			exceptionFoundId = ! ~['0', '3'].indexOf(foundId),
+			changeStatus,
+			comp = window.getComputedStyle(el, null),
+			isFixed = /^fixed/.test(comp.position),
+            numberOfToolbars = localStorage.getItem("numberOfWebToolbars") ? localStorage.getItem("numberOfWebToolbars") : 1;
+
+
+                                /*
+                                * Function: getElementPriority
+                                * Description: Itreate through the stylesheets in the dom and search for specific top element priority
+                                * Parameters: Element(Node) 
+                                */
+                                var getElementPriority = function (el) {
+                                    var priority = null;
+                                    var stylesheets = document.styleSheets;
+                                    var rules = null;
+
+                                    var sId = '#' + el.id;
+                                    var sClass = '\.' + el.className;
+
+                                    var regEx = new RegExp("(^" + sId + "$|^" + sClass + "$|^" + sId + "[\s]{0,}" + sClass + "$|^" + sClass + "[\s]{0,}" + sId + "$)");
+
+                                    for (var i = 0; i < stylesheets.length; ++i) {
+                                        rules = stylesheets[i].rules || stylesheets[i].cssRules;
+
+                                        if (rules && rules.length) {
+                                            for (var c = 0; c < rules.length; ++c) {
+
+                                                if (regEx.test(rules[c].selectorText) && rules[c].style.getPropertyCSSValue("top") !== null) {
+                                                    priority = rules[c].style.getPropertyPriority("top");
+                                                    return priority;
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+
+
+                                if (foundId) { //Check if we already fix this element
+                                    changeStatus = isFixed && foundId === '0' || !isFixed && foundId !== '0'
+                                }
+
+
+                                //SkipThisFixedPosition class use to avoid fixed elements that we doesn't want to decrease their top offset 
+
+                                if (/SkipThisFixedPosition/.test(el.className) || (foundId && exceptionFoundId && !changeStatus) || el.nodeType !== 1)
+                                    return false;
+
+                                if (isFixed) {
+                                    //for popups to be on top
+                                    el.setAttribute(foundAttribute, '1');
+
+
+                                    if (!/%/.test(comp.top)) { //if property value isn't percentage
+
+                                        //Check the priority off the CSS Property
+                                        if (el.style.getPropertyPriority("top") == "important" || getElementPriority(el) == "important") {
+                                            el.style.setProperty("top", (parseInt(comp.top, 10) + toolbarHeight * numberOfToolbars) + 'px', "important");
+                                        } else {
+                                            el.style.setProperty("top", (parseInt(comp.top, 10) + toolbarHeight * numberOfToolbars) + 'px');
+                                        }
+                                    }
+
+                                    if (typeof (el.prevTop) === 'undefined') {
+                                        el.prevTop = comp.top; //Save the last top of the element
+
+                                    /*path to fix bug 3455 - the element has css 3 property webkit transition and thats why
+                                    the computed top doesn't reflect the real element size and calling the below function causes infinte loop  */
+                                    if(el.className.indexOf("fbTimelineStickyHeader")!=-1&&window.location.href.indexOf("facebook.com")!=-1){
+                                    }else{
+                                        //patch for avoiding setInterval (calling setTimeout in recursion)
+                                        var FIXED_INTERVAL_CALLBACK_INTERVAL = 100; // in ms.
+                                        var fixedIntervalCallbackWrapper = function () {
+                                            fixedIntervalCallback(el);
+                                            setTimeout(fixedIntervalCallbackWrapper, FIXED_INTERVAL_CALLBACK_INTERVAL);
+                                        }
+                                        setTimeout(fixedIntervalCallbackWrapper, FIXED_INTERVAL_CALLBACK_INTERVAL);
+                                        }
+                                    }
+                                } else if (foundId) { //If we itreate through the element but is not fix
+                                    if (foundId !== "0" && el.prevTop !== undefined) {
+                                        el.style.removeProperty('top');
+
+                                        el.setAttribute(foundAttribute, '0');
+                                        el.prevTop = undefined;
+                                    }
+                                }
+
+                            } var allChildren = document.getElementsByTagName('*'); for(var i=0, count=allChildren.length; i<count; i++){ var el = allChildren[i]; if (el.nodeType === 1 && !/SkipThisFixedPosition/.test(el.className)){ el.__defineSetter__('className', function(val){ this.setAttribute('class', val); moveFixed(this); var children = this.getElementsByTagName('*'); for(var i=0, count=children.length; i < count; i++){ moveFixed(children[i]); } }); el.__defineGetter__('className', function(){ return this.getAttribute('class') || ''; }); } } })();</script><div id="paypixy-icon" class="search" style="position: fixed; top: 34px; right: 0px; z-index: 2147483640; cursor: pointer;" fixed_managed="2"><span id="paypixy-icon-link" href="#" title="View all offers from paypixy.com"><img src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/pay_pixy_logo_small_flipped.png"></span></div><div class="SkipThisFixedPosition top-iframe-wrapper" style="width: 100%; height: 34px; position: fixed; z-index: 2147483647; left: 0px; display: block; top: 0px !important;"><iframe class="TOOLBAR_IFRAME" id="T_0.2225588581059128" frameborder="0" scrolling="no" style="width: 100%; height: 100%; min-height: 100%; line-height: 0; position: absolute; left: 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgba(0, 0, 0, 0.294118); margin: 0px !important; display: block; top: 0px !important;" src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/container.htm"></iframe></div></body><div style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;" id="_atssh"><iframe id="_atssh809" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0px; left: 0px; top: 0px;" src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/sh105.htm"></iframe></div><script type="text/javascript" src="./HCI Call For Papers for Conferences, Workshops and Journals at WikiCFP_files/core053.js"></script><span id="skype_highlighting_settings" display="none" autoextractnumbers="1" hightlightingswitched="0"></span><object id="skype_plugin_object" location.href="http://www.wikicfp.com/cfp/call?conference=HCI&amp;page=2" location.hostname="www.wikicfp.com" style="position: absolute; visibility: hidden; left: -100px; top: -100px;" width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>

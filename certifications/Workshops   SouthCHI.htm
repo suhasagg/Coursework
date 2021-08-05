@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<!-- saved from url=(0027)http://southchi.org/node/33 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:og="http://ogp.me/ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" style="height: 589px; margin-top: 34px !important;" toolbar_fixed="1" class="js"><script>(function docInject_start() {
+        var toolbarHeight = 35,
+			windowHeightMinusToolbar = document.documentElement.clientHeight - toolbarHeight,
+			measurer;
+
+        window.addEventListener('load', function () {
+            window.toolbarLoad = true;
+
+            // measurer is used to calculate the height of the page's contents. The height is used to detect scrolling:
+            measurer = document.createElement('div');
+            measurer.id = "toolbar_measurer";
+            measurer.className = "SkipThisFixedPosition";
+            measurer.style.position = 'fixed';
+            measurer.style.bottom = '0';
+            document.body.appendChild(measurer);
+
+
+
+        }, false);
+        window.addEventListener('resize', function () {
+            // The HTML element's height should be the window height minus the toolbars' height:
+            document.documentElement.style.pixelHeight = getHeight();
+        }, false);
+
+        function getHeight() {
+
+            if (measurer) {
+                measurer.style.display = "block";
+                return Math.max(measurer.getClientRects()[0].bottom, 0);
+            }
+
+            return windowHeightMinusToolbar;
+        }
+
+
+
+
+        // If the HTML's height is queried by the page's scripts, return it without the toolbars' height
+
+
+
+        document.documentElement.__defineGetter__('clientHeight', function () {
+            return getHeight();
+        });
+        window.__defineGetter__('innerHeight', function () {
+            return getHeight();
+        });
+
+
+        // When client rects are requested by the page's scripts, they should be modified to reflect the toolbar(s):
+        var gc = HTMLElement.prototype.getClientRects;
+        HTMLElement.prototype.getClientRects = function () {
+            var res = gc.apply(this, arguments);
+            if (res && res.length)
+                res = res[0];
+            else
+                return null;
+
+
+            return [{
+                top: res.top - toolbarHeight,
+                left: res.left,
+                bottom: res.bottom - toolbarHeight,
+                right: res.right,
+                height: res.height,
+                width: res.width
+            }]
+        };
+        var gbc = HTMLElement.prototype.getBoundingClientRect;
+        HTMLElement.prototype.getBoundingClientRect = function () {
+            var res = gbc.apply(this, arguments);
+            res.topVal = res.top - toolbarHeight;
+            res.bottomVal = res.bottom - toolbarHeight;
+            res.__defineGetter__('top', function () {
+                return this.topVal;
+            });
+            res.__defineGetter__('bottom', function () {
+                return this.bottomVal;
+            });
+            return res;
+        };
+
+        var wrappedMouseMoveHandlers = [];
+
+        // Mouse move events are wrapped, so the pageY takes into account the toolbars' height (for mouseenter/mouseleave events, for example):
+        function wrapMouseMove(owner) {
+            var origAddEvent = owner.addEventListener,
+				origRemoveEvent = owner.removeEventListener;
+
+            owner.addEventListener = function (eventName, handler, useCapture) {
+                if (eventName == 'mousemove') {
+                    var wrapper = function (e) {
+                        e.stopPropagation();
+
+                        var ee = document.createEvent('MouseEvents');
+                        ee.initMouseEvent(e.type, e.cancelBubble, e.cancelable, e.view, e.detail, e.screenX, e.screenY, e.clientX, e.clientY - toolbarHeight, e.ctrlKey, e.altKey, e.shiftKey, e.metaKey, e.button, e.relatedTarget);
+                        ee.__defineGetter__("target", function () { return e.target });
+                        ee.__defineGetter__("srcElement", function () { return e.srcElement; });
+                        ee.__defineGetter__("toElement", function () { return e.toElement });
+                        handler.call(e.target, ee);
+                    };
+
+                    wrappedMouseMoveHandlers.push({ orig: handler, wrapped: wrapper });
+                    return origAddEvent.call(this, eventName, wrapper, useCapture);
+                } else origAddEvent.apply(this, arguments);
+            }
+
+            owner.removeEventListner = function (eventName, listener, useCapture) {
+                if (eventName === "mousemove") {
+                    for (var i = 0, count = wrappedMouseMoveHandlers.length; i < count; i++) {
+                        var handlerPair = wrappedMouseMoveHandlers[i];
+                        if (handlerPair.orig === listener) {
+                            wrappedMouseMoveHandlers.splice(i, 1);
+                            return origRemoveEvent.call(this, eventName, handlerPair.wrapped, useCapture);
+                        }
+                    }
+
+                    return origRemoveEvent.apply(this, arguments);
+                } else origRemoveEvent.apply(this, arguments);
+            }
+        }
+
+        if (window.location.href.indexOf("docs.google.com") === -1 && window.location.href.indexOf("f-i.com/broadway/iPad/") === -1) {
+            wrapMouseMove(Node.prototype);
+            wrapMouseMove(window.constructor.prototype);
+        }
+    })()</script><head profile="http://www.w3.org/1999/xhtml/vocab"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+<meta about="/node/33" property="sioc:num_replies" content="0" datatype="xsd:integer">
+<link rel="shortcut icon" href="http://southchi.org/misc/favicon.ico" type="image/vnd.microsoft.icon">
+<meta content="Workshops" about="/node/33" property="dc:title">
+<link rel="shortlink" href="./Workshops   SouthCHI_files/Workshops   SouthCHI.htm">
+<meta name="Generator" content="Drupal 7 (http://drupal.org)">
+<link rel="canonical" href="./Workshops   SouthCHI_files/Workshops   SouthCHI.htm">
+  <title>Workshops | SouthCHI</title>
+  <link type="text/css" rel="stylesheet" href="./Workshops   SouthCHI_files/css__9zsakYbWSOTLroLLtWO9P7zLJXhXtSJo2OgXN4wIrU.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Workshops   SouthCHI_files/css_dKnG58T4J3FV2ncyxEK_em7_3AkOrb17XYUJInrRmRM.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Workshops   SouthCHI_files/css_EaMdNeIr1Sa9MVrk5bTySYQn6RmPOeN0QaQMR9L98vs.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Workshops   SouthCHI_files/css_ksf7gvS5T4Ry-rOegOelzzzSQokpCUFvKPG0aK8yyrc.css" media="all">
+  <script type="text/javascript" src="./Workshops   SouthCHI_files/jquery.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/jquery.once.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/drupal.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/ajax.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/jquery.colorbox-min.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/colorbox.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/colorbox_default_style.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/colorbox_load.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/colorbox_node.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/progress.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/jquery.hoverIntent.minified.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/jquery.bgiframe.min.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/superfish.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/supersubs.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/supposition.js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/sftouchscreen.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery(function(){
+jQuery('#superfish-1').supersubs({minWidth: 12, maxWidth: 27, extraWidth: 1}).superfish({
+animation: {opacity:'show',height:'show',width:'show'},
+speed: 'fast',
+autoArrows: false,
+dropShadows: false});
+});
+//--><!]]>
+</script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/superfish(1).js"></script>
+<script type="text/javascript" src="./Workshops   SouthCHI_files/hoverIntent.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"whitebull","theme_token":"pDBVVVhZz7ZP2sGddTvdGg5LC8-R7PsSz7AuocjDd7o","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"misc\/ajax.js":1,"sites\/all\/libraries\/colorbox\/colorbox\/jquery.colorbox-min.js":1,"sites\/all\/modules\/colorbox\/js\/colorbox.js":1,"sites\/all\/modules\/colorbox\/styles\/default\/colorbox_default_style.js":1,"sites\/all\/modules\/colorbox\/js\/colorbox_load.js":1,"sites\/all\/modules\/colorbox_node\/colorbox_node.js":1,"misc\/progress.js":1,"sites\/all\/libraries\/superfish\/jquery.hoverIntent.minified.js":1,"sites\/all\/libraries\/superfish\/jquery.bgiframe.min.js":1,"sites\/all\/libraries\/superfish\/superfish.js":1,"sites\/all\/libraries\/superfish\/supersubs.js":1,"sites\/all\/libraries\/superfish\/supposition.js":1,"sites\/all\/libraries\/superfish\/sftouchscreen.js":1,"0":1,"sites\/all\/themes\/whitebull\/scripts\/superfish.js":1,"sites\/all\/themes\/whitebull\/scripts\/hoverIntent.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/video_filter\/video_filter.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ckeditor\/ckeditor.css":1,"sites\/all\/modules\/colorbox\/styles\/default\/colorbox_default_style.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"public:\/\/css\/menu_icons.css":1,"sites\/all\/libraries\/superfish\/css\/superfish.css":1,"sites\/all\/libraries\/superfish\/css\/superfish-vertical.css":1,"sites\/all\/libraries\/superfish\/css\/superfish-navbar.css":1,"sites\/all\/libraries\/superfish\/style\/white.css":1,"sites\/all\/themes\/whitebull\/styles\/style.css":1,"sites\/all\/themes\/whitebull\/styles\/header.css":1,"sites\/all\/themes\/whitebull\/styles\/slideshow-and-column.css":1,"sites\/all\/themes\/whitebull\/styles\/container.css":1,"sites\/all\/themes\/whitebull\/styles\/footer.css":1,"sites\/all\/themes\/whitebull\/styles\/other.css":1,"sites\/all\/themes\/whitebull\/styles\/superfish-menu.css":1}},"colorbox":{"opacity":"0.85","current":"{current} of {total}","previous":"\u00ab Prev","next":"Next \u00bb","close":"Close","maxWidth":"100%","maxHeight":"100%","fixed":true,"__drupal_alter_by_ref":["default"]},"video_filter":{"url":{"ckeditor":"\/video_filter\/dashboard\/ckeditor"},"modulepath":"sites\/all\/modules\/video_filter"}});
+//--><!]]>
+</script>
+<script id="__isTpiViewExists"></script><link rel="stylesheet" type="text/css" href="chrome-extension://cgpnojibjokpoghebklhkdeijehkohhb/css/about.css"><style>@media print { body { width: auto !important; } }</style><script type="text/javascript">try{if(ups && ups.updateZIndex){ ups.updateZIndex(99996); }}catch(e){}</script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/document_iterator.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/find_proxy.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/get_html_text.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/global_constants.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/name_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/number_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/menu_injection_builder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/string_finder.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/change_sink.js"></script><link rel="stylesheet" type="text/css" href="./Workshops   SouthCHI_files/style.css"><meta name="document_iterator.js"><meta name="find_proxy.js"><meta name="get_html_text.js"><meta name="global_constants.js"><meta name="name_injection_builder.js"><meta name="number_injection_builder.js"><meta name="menu_injection_builder.js"><meta name="string_finder.js"><meta name="change_sink.js"></head>
+<body class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-33 node-type-page" style="position: absolute; width: 1349px; height: 633px !important;"><div id="cboxOverlay" style="display: none; top: 34px; position: fixed;" fixed_managed="2"></div><div id="colorbox" class="" style="padding-bottom: 25px; padding-right: 30px; display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div>
+  <div id="skip-link">
+    <a href="http://southchi.org/node/33#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+        <div id="page-wrapper">
+    
+        <div id="header-wrapper">
+            <div id="header">
+                    
+                <div id="authorize-and-feed">
+                    
+                    <div id="authorize">
+                        <ul>
+                                            
+                        </ul>
+                    </div><!--end of authorize-->
+                    
+                    <!--end of rss feed-->
+                
+                </div><!--end of authorize and feed icon-->
+                
+                <div style="clear:both"></div>
+                
+                <div id="menu-and-search">
+                    
+                    <div id="menu-left"></div>
+
+                    <div class="menu-wrapper">
+                                    
+                                                                                                               <div id="nav">
+                                            
+                                               <div class="region region-superfish-menu">
+    <div id="block-superfish-1" class="block block-superfish">
+
+  <h2 class="block-title">Main menu</h2>
+
+<div class="content">
+  <ul id="superfish-1" class="sf-menu main-menu sf-horizontal sf-style-white sf-total-items-7 sf-parent-items-4 sf-single-items-3 sf-js-enabled"><li id="menu-218-1" class="first odd sf-item-1 sf-depth-1 sf-no-children"><a href="http://southchi.org/" title="" class="sf-depth-1 ">Home</a></li><li id="menu-373-1" class="middle even sf-item-2 sf-depth-1 sf-total-children-3 sf-parent-children-0 sf-single-children-3 menuparent"><span title="" class="sf-depth-1  menuparent nolink">About SouthCHI</span><ul style="float: none; width: 12em; display: none; visibility: hidden;"><li id="menu-415-1" class="first odd sf-item-1 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/About_SouthCHI" class="sf-depth-2 " style="float: none; width: auto;">About SouthCHI</a></li><li id="menu-359-1" class="middle even sf-item-2 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/Publications" class="sf-depth-2 " style="float: none; width: auto;">Publication Type</a></li><li id="menu-364-1" class="last odd sf-item-3 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/awards" class="sf-depth-2 " style="float: none; width: auto;">Awards</a></li></ul></li><li id="menu-355-1" class="middle odd sf-item-3 sf-depth-1 sf-total-children-7 sf-parent-children-0 sf-single-children-7 menuparent"><span title="" class="sf-depth-1  menuparent nolink">Calls &amp; Dates</span><ul style="float: none; width: 12em; display: none; visibility: hidden;"><li id="menu-413-1" class="first odd sf-item-1 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/calls_dates" class="sf-depth-2 " style="float: none; width: auto;">Calls &amp; Dates</a></li><li id="menu-363-1" class="middle even sf-item-2 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/workshops" class="sf-depth-2 " style="float: none; width: auto;">Workshops</a></li><li id="menu-356-1" class="middle odd sf-item-3 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/full_papers" class="sf-depth-2 " style="float: none; width: auto;">Full Papers</a></li><li id="menu-357-1" class="middle even sf-item-4 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/short_papers" class="sf-depth-2 " style="float: none; width: auto;">Short Papers</a></li><li id="menu-362-1" class="middle odd sf-item-5 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/doctoral_consortium" class="sf-depth-2 " style="float: none; width: auto;">Doctoral Consortium</a></li><li id="menu-358-1" class="middle even sf-item-6 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/posters_demos" class="sf-depth-2 " style="float: none; width: auto;">Posters, demos</a></li><li id="menu-361-1" class="last odd sf-item-7 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/videos" class="sf-depth-2 " style="float: none; width: auto;">Videos</a></li></ul></li><li id="menu-515-1" class="active-trail middle even sf-item-4 sf-depth-1 sf-total-children-5 sf-parent-children-0 sf-single-children-5 menuparent"><a href="./Workshops   SouthCHI_files/Workshops   SouthCHI.htm" class="sf-depth-1  menuparent active">Workshops</a><ul style="float: none; width: 12em; display: none; visibility: hidden;"><li id="menu-520-1" class="first odd sf-item-1 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/39" class="sf-depth-2 " style="float: none; width: auto;">SS-HCI-KDD</a></li><li id="menu-519-1" class="middle even sf-item-2 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/37" class="sf-depth-2 " style="float: none; width: auto;">SS-SLE</a></li><li id="menu-516-1" class="middle odd sf-item-3 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/34" class="sf-depth-2 " style="float: none; width: auto;">WS-GSGHC</a></li><li id="menu-517-1" class="middle even sf-item-4 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/35" class="sf-depth-2 " style="float: none; width: auto;">WS-HCI-SEE</a></li><li id="menu-518-1" class="last odd sf-item-5 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/36" class="sf-depth-2 " style="float: none; width: auto;">WS-DCAW</a></li></ul></li><li id="menu-450-1" class="middle odd sf-item-5 sf-depth-1 sf-no-children"><a href="http://southchi.org/keynote_speakers" class="sf-depth-1 ">Keynote speakers</a></li><li id="menu-368-1" class="middle even sf-item-6 sf-depth-1 sf-total-children-6 sf-parent-children-0 sf-single-children-6 menuparent"><span title="" class="sf-depth-1  menuparent nolink">General information</span><ul style="float: none; width: 13.571428571428571em; display: none; visibility: hidden;"><li id="menu-370-1" class="first odd sf-item-1 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/18" class="sf-depth-2 " style="float: none; width: auto;">Conference Venue</a></li><li id="menu-369-1" class="middle even sf-item-2 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/17" class="sf-depth-2 " style="float: none; width: auto;">Contact</a></li><li id="menu-371-1" class="middle odd sf-item-3 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/Committees" class="sf-depth-2 " style="float: none; width: auto;">Committees</a></li><li id="menu-451-1" class="middle even sf-item-4 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/SouthCHI_conference_registration_fees" class="sf-depth-2 " style="float: none; width: auto;">Conference Registration Fees</a></li><li id="menu-372-1" class="middle odd sf-item-5 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/node/20" class="sf-depth-2 " style="float: none; width: auto;">How to reach Maribor</a></li><li id="menu-447-1" class="last even sf-item-6 sf-depth-2 sf-no-children" style="white-space: normal; float: left; width: 100%;"><a href="http://southchi.org/Excursions_" class="sf-depth-2 " style="float: none; width: auto;">Excursions</a></li></ul></li><li id="menu-449-1" class="last odd sf-item-7 sf-depth-1 sf-no-children"><a href="http://southchi.org/sponsors" class="sf-depth-1 ">Sponsors</a></li></ul></div> 
+</div>
+  </div>
+                                        </div><!--end of menu-->
+                                                                            
+                                <!--this is a search box-->
+                                                                
+                    </div>
+                    
+                    <div id="menu-right"></div>
+                    
+                </div><!--end of menu and search-box-->
+                
+                <div id="branding-wrapper">
+                    
+                                        
+                </div><!--end of branding-->    
+                
+            </div>
+        </div><!--end of header-->
+            
+
+        <!--end of slideshow wrapper-->
+        
+            
+                        
+        
+        <div id="container-wrapper">
+            
+                    
+                                                                        <div id="breadcrumb">
+                                <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="http://southchi.org/">Home</a></div>                            </div>
+                                            <!--end of breadcrumb-->
+        
+        
+            <div id="container-outer">    
+                    
+                <div class="top-shadow"></div>        
+                <div class="middle-shadow"><!--this is a background of container,consist of top-shadow middle-shadow and bottom-shadow, i create it for two other regions, in bottom-teaser and bottom-wrapper, so it's all connected, just edit this and two other will automatically changed, enjoy it:D-->
+                <div class="middle-fix"><!--this is to fix container of middle shadow-->
+                
+                    
+                    <!--end of sidebar left-->
+                            
+                    
+                    <div id="main-content">
+                        
+                                                                        <div class="tabs"></div>                        <h1 class="title"></h1>                                                                        <div id="content-middle">  <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+
+<div class="content">
+  <div id="node-33" class="node node-page clearfix" about="/node/33" typeof="foaf:Document">
+                <h2 property="dc:title" datatype="" class="title">
+                <a href="./Workshops   SouthCHI_files/Workshops   SouthCHI.htm">Workshops</a>
+            </h2>
+        
+        
+                
+        
+        <div class="content clearfix">
+            <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><h4>
+	<strong><a href="http://www.southchi.org/node/39">Special Session on Human-Computer Interaction &amp; Knowledge Discovery (SS-HCI-KDD)</a></strong></h4>
+<table border="0" cellpadding="1" cellspacing="1" style="width: 500px;"><tbody><tr><td>
+				<strong>Contact</strong><br>
+				Andreas Holzinger<br>
+				a.holzinger [at] hci4all.at</td>
+</tr><tr><td>
+				<br><strong>Deadlines</strong><br>
+				Paper Submission ------ <strong>February, 15, 2013</strong><br>
+				Camera Ready Submission ------ <strong>April, 15, 2013</strong><br>
+				&nbsp;</td>
+</tr><tr><td>
+				<br><strong>Workshop Website</strong><br><a href="http://www.hci4all.at/?page_id=1273">http://www.hci4all.at/?page_id=1273</a><br>
+				&nbsp;</td>
+</tr></tbody></table><h4>
+	<br>
+	&nbsp;</h4>
+<h4>
+	<strong><a href="http://www.southchi.org/node/37">Special Session on Smart Learning Environments (SS-SLE)</a></strong></h4>
+<table border="0" cellpadding="1" cellspacing="1" style="width: 500px;"><tbody><tr><td>
+				<strong>Contact</strong><br>
+				Kinshuk<br>
+				kinshuk [at] ieee.org</td>
+</tr><tr><td>
+				<br><strong>Deadlines</strong><br>
+				Paper Submission ------ <strong>February, 15, 2013</strong><br>
+				Notification of Acceptance ------ <strong>March, 10, 2013</strong><br>
+				Camera Ready Submission ------ <strong>April, 15, 2013</strong><br>
+				&nbsp;</td>
+</tr><tr><td>
+				<br><strong>Workshop Website</strong><br><a href="http://www.iasle.net/sle_south_chi2013/">http://www.iasle.net/sle_south_chi2013/</a><br>
+				&nbsp;</td>
+</tr></tbody></table><h4>
+	<br>
+	&nbsp;</h4>
+<h4>
+	<a href="http://www.southchi.org/node/34"><strong>Workshop for Gamification and Serious Games in Healthcare (WS-GSGHC)</strong></a></h4>
+<table border="0" cellpadding="1" cellspacing="1" style="width: 500px;"><tbody><tr><td>
+				<strong>Contact</strong><br>
+				Philipp Brauner<br>
+				philipp.brauner [at] rwth-aachen.de</td>
+</tr><tr><td>
+				<br><strong>Deadlines</strong><br>
+				Paper Submission ------<strong> February, 22, 2013</strong>.<br>
+				Notification of Acceptance ------ <strong>March, 15, 2013</strong>.<br>
+				Camera Ready Submission ------ <strong>April, 30, 2013</strong>.</td>
+</tr><tr><td>
+				<br>
+				Submit your paper at <a href="https://www.conftool.net/southCHI2013/">Conftool submission system</a>.</td>
+</tr></tbody></table><h4>
+	<br>
+	&nbsp;</h4>
+<h4>
+	<strong><a href="http://www.southchi.org/node/35">Workshop for Assessing the State of HCI Research and Practice in South-Eastern Europe (WS-HCI-SEE)</a></strong></h4>
+<table border="0" cellpadding="1" cellspacing="1" style="width: 500px;"><tbody><tr><td>
+				<strong>Contact</strong><br>
+				Bojan Blažica<br>
+				bojan.blazica [at] xlab.si</td>
+</tr><tr><td>
+				<br><strong>Deadlines</strong><br>
+				Paper Submission ------ <strong>February, 22, 2013</strong><br>
+				Notification of Acceptance ------ <strong>March, 31, 2013</strong><br>
+				Camera Ready Submission ------ <strong>April, 30, 2013</strong>
+<p>				Submit your paper at <a href="https://www.conftool.net/southCHI2013/">Conftool submission system</a>.</p></td>
+</tr><tr><td>
+				<br><strong>Workshop Website</strong><br><a href="http://hci.si/see/">http://hci.si/see/</a><br>
+				&nbsp;</td>
+</tr></tbody></table><h4>
+	<br>
+	&nbsp;</h4>
+<h4>
+	<strong><a href="http://www.southchi.org/node/36">Workshop "Design Culture for Ageing Well: Designing for ‘Situated Elderliness’ (WS-DCAW)</a></strong></h4>
+<table border="0" cellpadding="1" cellspacing="1" style="width: 500px;"><tbody><tr><td>
+				<strong>Contact</strong><br>
+				Özge Subasi<br>
+				subasi [at] igw.tuwien.ac.at</td>
+</tr><tr><td>
+				<br><strong>Deadlines</strong><br>
+				Paper Submission ------ <strong>February, 14, 2013</strong><br>
+				Camera Ready Submission ------ <strong>April, 30, 2013</strong>
+<p>				Submit your paper at <a href="https://www.conftool.net/southCHI2013/">Conftool submission system</a>.</p></td>
+</tr><tr><td>
+				<br><strong>Workshop Website</strong><br><a href="http://designcultureworkshop.wordpress.com/">http://designcultureworkshop.wordpress.com/</a><br>
+				&nbsp;</td>
+</tr></tbody></table><p>&nbsp;</p>
+</div></div></div>        </div>
+        
+                
+                
+</div>
+</div> 
+</div>
+  </div>
+</div>                        
+                    </div><!--this is main content, you can edit this if you want to change arange of main content-->
+                        
+                        
+                                            <div id="sidebar-right-wrapper">
+                                <div id="sidebar-right" class="sidebar">
+                                      <div class="region region-sidebar-second">
+    <div id="block-views-news-block" class="block block-views">
+
+  <h2 class="block-title">News</h2>
+
+<div class="content">
+  <div class="view view-news view-id-news view-display-id-block view-dom-id-07566b862b913195d4f45f58a9b231b3">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+    <div id="node-40" class="node node-article node-promoted node-teaser clearfix" about="/node/40" typeof="sioc:Item foaf:Document">
+                <h2 property="dc:title" datatype="" class="title">
+                <a href="http://southchi.org/node/40">Deadlines</a>
+            </h2>
+        
+        
+                
+        
+        <div class="content clearfix">
+            <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>The dates for submissions of posters, demos, videos and doctoral consortium have been extended. Please check <a href="http://www.southchi.org/calls_dates">http://www.southchi.org/calls_dates</a> for more information.</p>
+</div></div></div>        </div>
+        
+                    <div class="links">
+                            </div>
+                
+                
+</div>
+  </div>
+  <div class="views-row views-row-2 views-row-even">
+    <div id="node-38" class="node node-article node-promoted node-teaser clearfix" about="/node/38" typeof="sioc:Item foaf:Document">
+                <h2 property="dc:title" datatype="" class="title">
+                <a href="http://southchi.org/node/38">Workshops</a>
+            </h2>
+        
+        
+                
+        
+        <div class="content clearfix">
+            <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>New workshop themes are now available on our official website. For more information, please go to <a href="http://www.southchi.org/node/33">http://www.southchi.org/node/33</a>.</p>
+</div></div></div>        </div>
+        
+                    <div class="links">
+                            </div>
+                
+                
+</div>
+  </div>
+  <div class="views-row views-row-3 views-row-odd views-row-last">
+    <div id="node-32" class="node node-article node-promoted node-teaser clearfix" about="/node/32" typeof="sioc:Item foaf:Document">
+                <h2 property="dc:title" datatype="" class="title">
+                <a href="http://southchi.org/node/32">Website </a>
+            </h2>
+        
+        
+                
+        
+        <div class="content clearfix">
+            <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>Unfortunately our official website was unavailable due to technical problems. It has been reestablished and works fine again. We apologize for the inconvenience.</p>
+</div></div></div>        </div>
+        
+                    <div class="links">
+                            </div>
+                
+                
+</div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div></div> 
+</div>
+  </div>
+                                </div>    
+                        </div>
+                    <!--end of sidebar right-->
+                    
+                </div><!--end of middle fix-->
+                    <div style="clear:both"></div>
+                </div><!--end of middle shadow-->
+                <div class="bottom-shadow"></div>
+                    
+            </div>    
+
+        </div><!--end of conteiner wrapper-->        
+
+        
+            
+            
+                                    
+        
+        
+        <div id="footer">
+
+            <!--this is another note, i give it for drupal 7 version, just enjoy it-->
+            
+            <div style="clear:both"></div>
+            
+                        
+            <div class="footer">
+                            </div>
+                
+            
+            <div style="clear:both"></div>
+            
+        </div><!--end of footer-->
+
+    </div>
+  <div style="display:none"><div id="cboxNode"></div></div><div id="cboxNodeJS"></div>
+
+<div id="toolbar_measurer" class="SkipThisFixedPosition" style="position: fixed; bottom: 0px; display: block;"></div><div class="SkipThisFixedPosition main-iframe-wrapper" id="main-iframe-wrapper" background="chrome-extension://cgpnojibjokpoghebklhkdeijehkohhb/screenShot.png" style="z-index: 2147483644; top: 0px; left: 0px; margin: 0px; line-height: 0; display: block !important; width: 100%; height: 34px; position: fixed;"></div><div id="mainContainer_CTID"><div class="fixedDiv UrlGadgetsDiv" style="position: fixed; left: 0px; z-index: 2147483640; top: 34px !important;" fixed_managed="2"></div><div class="fixedDiv SkipThisFixedPosition GeneralGadgetsDiv" style="position: fixed; left: 0px; z-index: 2147483644; width: 100%; top: 34px !important;"></div></div><script>(function docInject_end(){ var toolbarHeight = 34, foundAttribute = 'fixed_managed'; function fixedIntervalCallback(el) {
+                                var styleTop = el.style.top,
+			styleTopInt = parseInt(styleTop, 10);
+
+                                if (typeof (el.prevTop) !== 'undefined' && !isNaN(styleTopInt) && ((el.prevTop !== styleTop && (styleTop === '0' || /^\d+\s?px/.test(styleTop))))) {
+
+                                    el.prevTop = el.style.top = (styleTopInt + toolbarHeight) + 'px';
+                                }
+                            }function moveFixed(el) {
+
+                                var foundId = el.getAttribute(foundAttribute),
+			exceptionFoundId = ! ~['0', '3'].indexOf(foundId),
+			changeStatus,
+			comp = window.getComputedStyle(el, null),
+			isFixed = /^fixed/.test(comp.position),
+            numberOfToolbars = localStorage.getItem("numberOfWebToolbars") ? localStorage.getItem("numberOfWebToolbars") : 1;
+
+
+                                /*
+                                * Function: getElementPriority
+                                * Description: Itreate through the stylesheets in the dom and search for specific top element priority
+                                * Parameters: Element(Node) 
+                                */
+                                var getElementPriority = function (el) {
+                                    var priority = null;
+                                    var stylesheets = document.styleSheets;
+                                    var rules = null;
+
+                                    var sId = '#' + el.id;
+                                    var sClass = '\.' + el.className;
+
+                                    var regEx = new RegExp("(^" + sId + "$|^" + sClass + "$|^" + sId + "[\s]{0,}" + sClass + "$|^" + sClass + "[\s]{0,}" + sId + "$)");
+
+                                    for (var i = 0; i < stylesheets.length; ++i) {
+                                        rules = stylesheets[i].rules || stylesheets[i].cssRules;
+
+                                        if (rules && rules.length) {
+                                            for (var c = 0; c < rules.length; ++c) {
+
+                                                if (regEx.test(rules[c].selectorText) && rules[c].style.getPropertyCSSValue("top") !== null) {
+                                                    priority = rules[c].style.getPropertyPriority("top");
+                                                    return priority;
+                                                }
+                                            }
+                                        }
+                                    }
+                                };
+
+
+                                if (foundId) { //Check if we already fix this element
+                                    changeStatus = isFixed && foundId === '0' || !isFixed && foundId !== '0'
+                                }
+
+
+                                //SkipThisFixedPosition class use to avoid fixed elements that we doesn't want to decrease their top offset 
+
+                                if (/SkipThisFixedPosition/.test(el.className) || (foundId && exceptionFoundId && !changeStatus) || el.nodeType !== 1)
+                                    return false;
+
+                                if (isFixed) {
+                                    //for popups to be on top
+                                    el.setAttribute(foundAttribute, '1');
+
+
+                                    if (!/%/.test(comp.top)) { //if property value isn't percentage
+
+                                        //Check the priority off the CSS Property
+                                        if (el.style.getPropertyPriority("top") == "important" || getElementPriority(el) == "important") {
+                                            el.style.setProperty("top", (parseInt(comp.top, 10) + toolbarHeight * numberOfToolbars) + 'px', "important");
+                                        } else {
+                                            el.style.setProperty("top", (parseInt(comp.top, 10) + toolbarHeight * numberOfToolbars) + 'px');
+                                        }
+                                    }
+
+                                    if (typeof (el.prevTop) === 'undefined') {
+                                        el.prevTop = comp.top; //Save the last top of the element
+
+                                    /*path to fix bug 3455 - the element has css 3 property webkit transition and thats why
+                                    the computed top doesn't reflect the real element size and calling the below function causes infinte loop  */
+                                    if(el.className.indexOf("fbTimelineStickyHeader")!=-1&&window.location.href.indexOf("facebook.com")!=-1){
+                                    }else{
+                                        //patch for avoiding setInterval (calling setTimeout in recursion)
+                                        var FIXED_INTERVAL_CALLBACK_INTERVAL = 100; // in ms.
+                                        var fixedIntervalCallbackWrapper = function () {
+                                            fixedIntervalCallback(el);
+                                            setTimeout(fixedIntervalCallbackWrapper, FIXED_INTERVAL_CALLBACK_INTERVAL);
+                                        }
+                                        setTimeout(fixedIntervalCallbackWrapper, FIXED_INTERVAL_CALLBACK_INTERVAL);
+                                        }
+                                    }
+                                } else if (foundId) { //If we itreate through the element but is not fix
+                                    if (foundId !== "0" && el.prevTop !== undefined) {
+                                        el.style.removeProperty('top');
+
+                                        el.setAttribute(foundAttribute, '0');
+                                        el.prevTop = undefined;
+                                    }
+                                }
+
+                            } var allChildren = document.getElementsByTagName('*'); for(var i=0, count=allChildren.length; i<count; i++){ var el = allChildren[i]; if (el.nodeType === 1 && !/SkipThisFixedPosition/.test(el.className)){ el.__defineSetter__('className', function(val){ this.setAttribute('class', val); moveFixed(this); var children = this.getElementsByTagName('*'); for(var i=0, count=children.length; i < count; i++){ moveFixed(children[i]); } }); el.__defineGetter__('className', function(){ return this.getAttribute('class') || ''; }); } } })();</script><div id="paypixy-icon" class="search" style="position: fixed; top: 34px; right: 0px; z-index: 2147483640; cursor: pointer;" fixed_managed="2"><span id="paypixy-icon-link" href="#" title="View all offers from paypixy.com"><img src="./Workshops   SouthCHI_files/pay_pixy_logo_small_flipped.png"></span></div><div class="SkipThisFixedPosition top-iframe-wrapper" style="width: 100%; height: 34px; position: fixed; z-index: 2147483647; left: 0px; display: block; top: 0px !important;"><iframe class="TOOLBAR_IFRAME" id="T_0.014081218978390098" frameborder="0" scrolling="no" style="width: 100%; height: 100%; min-height: 100%; line-height: 0; position: absolute; left: 0px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgba(0, 0, 0, 0.294118); margin: 0px !important; display: block; top: 0px !important;" src="./Workshops   SouthCHI_files/container.htm"></iframe></div></body><span id="skype_highlighting_settings" display="none" autoextractnumbers="1" hightlightingswitched="0"></span><object id="skype_plugin_object" location.href="http://southchi.org/node/33" location.hostname="southchi.org" style="position: absolute; visibility: hidden; left: -100px; top: -100px;" width="0" height="0" type="application/x-vnd.skype.click2call.chrome.5.7.0"></object></html>
